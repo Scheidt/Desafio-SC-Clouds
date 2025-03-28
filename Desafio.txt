@@ -11,8 +11,8 @@ Primeiro temos uma parte conceitual. Gostaríamos de ver tuas respostas quanto �
 
 1 - Diferenciar as camadas 2 e 3 do modelo OSI, e indicar os protocolos utilizados para endereçamento nestas camadas.
 
-2 - Qual a diferença entre adotar uma solução proprietária como o sistema operacional Windows quando comparado a adoção de uma solução Open source 
-como o sistema operacional Ubuntu? Quais seriam os pontos negativos e positivos de cada abordagem?
+2 - Qual a diferença entre adotar uma solução proprietária como o sistema operacional Windows quando comparado a adoção de uma solução
+Open source como o sistema operacional Ubuntu? Quais seriam os pontos negativos e positivos de cada abordagem?
 
 3 - O que seria um projeto Open source? Como empresas podem adotar tais tecnologias e o que isso acarreta?
 
@@ -22,8 +22,8 @@ Como segunda etapa, gostaríamos de ver alguns códigos gerados por ti. Sendo as
 
 1 - Fibonacci
 
-    -- Criar uma função em sua linguagem preferida. A função deve receber um numero N >= 0 (deve validar o input para a função), e retornar o valor 
-    correspondente desse número na sequência Fibonacci. EX. fib(0) =0; fib(1) = 1; fib(2) = 1; fib(3) = 2; fib(5) = 5; fib(6) = 8.
+    -- Criar uma função em sua linguagem preferida. A função deve receber um numero N >= 0 (deve validar o input para a função), e retornar
+    o valor correspondente desse número na sequência Fibonacci. EX. fib(0) =0; fib(1) = 1; fib(2) = 1; fib(3) = 2; fib(5) = 5; fib(6) = 8.
 
     --- Criar uma função recursiva que resolva Fibonacci
 
@@ -31,8 +31,8 @@ Como segunda etapa, gostaríamos de ver alguns códigos gerados por ti. Sendo as
 
 2 - Números primos
 
-    -- Criar uma função em sua linguagem preferida. A função deve receber um numero N > 1 (validar o input), e retornar todos os números primos até o número N. 
-    EX. p(2) = [2]; p(3) = [2, 3]; p(10) = [2, 3, 5, 7];
+    -- Criar uma função em sua linguagem preferida. A função deve receber um numero N > 1 (validar o input), e retornar todos os números
+    primos até o número N. EX. p(2) = [2]; p(3) = [2, 3]; p(10) = [2, 3, 5, 7];
 
     --- Criar uma função recursiva que resolva p
 
@@ -43,5 +43,5 @@ Como segunda etapa, gostaríamos de ver alguns códigos gerados por ti. Sendo as
 Obs. Respostas criadas por IA como ChatGpt serão automaticamente desclassificadas.
 
 
-Assim que tu tiveres as respostas e os códigos para os desafios propostos, pode nos encaminhar via e-mail (os códigos devem ser postados no Github) para que possamos analisar,
-até o dia 24/10 ás 12h
+Assim que tu tiveres as respostas e os códigos para os desafios propostos, pode nos encaminhar via e-mail (os códigos devem ser postados
+no Github) para que possamos analisar, até o dia 24/10 ás 12h
