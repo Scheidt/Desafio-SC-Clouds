@@ -10,21 +10,30 @@ def isPrime(number, div = 2):
         return True
     return isPrime(number, div+1)
 
-def p(alvo, lista = []):
+def p(target, primes=None):
+    if primes is None:
+        primes = []
 
-    while not type(alvo) is int and alvo < 1:
+    while True:
         try:
-            alvo = input("O valor deve ser um número maior que um! Insira um novo número: ")
-            alvo = int(alvo)
-        except:
-            pass
-    if alvo == 2:
-        lista.append(2)
-        lista.reverse()
-        return lista
-    if isPrime(alvo):
-        lista.append(alvo)
-    return p(alvo - 1, lista)
+            target = int(target)
+            if target > 1:
+                break
+            else:
+                print("O número deve ser um inteiro maior que um.")
+        except ValueError:
+            print("Deve ser um número.")
+
+        target = input("O valor deve ser um número maior que um! Insira um novo número: ")
+
+    if target == 2:
+        primes.append(2)
+        primes.reverse()
+        return primes
+    if isPrime(target):
+        primes.append(target)
+    return p(target - 1, primes)
 
 
-print(p(10))
+while True:
+    print(p(input("Insira um número: ")))
