@@ -1,0 +1,21 @@
+
+Mencionar que não será feito fine tunning
+
+
+Ver das citações que citam o mesmo trabalho varias vezes no mesmo paragrafo?
+    Pegar outra citação?
+    Citar só no final?
+
+
+Novo Resumo?
+
+A segurança da informação enfrenta um cenário no qual ataques de phishing por e-mail figuram entre os principais vetores de comprometimento de organizações, intensificados pela utilização ofensiva de modelos de linguagem de larga escala (LLMs), capazes de gerar mensagens persuasivas, gramaticalmente corretas e personalizadas em larga escala. A mesma tecnologia desponta como candidata natural a classificador defensivo, dada sua aptidão para interpretar intenção e contexto comunicativo. Contudo, a literatura empírica concentra-se em modelos comerciais de grande porte, acessíveis exclusivamente via APIs externas — prática que expõe o conteúdo integral dos e-mails analisados a servidores de terceiros e suscita conflitos com legislações de proteção de dados como a LGPD e o GDPR. Permanece, assim, uma lacuna empírica quanto ao desempenho de modelos leves, executáveis localmente em hardware acessível, frente a modelos comerciais de referência na tarefa de detecção de phishing. Este trabalho tem como objetivo realizar uma análise comparativa entre quatro modelos de linguagem leves de poucos bilhões de parâmetros — Gemma 3 QAT, Qwen3, Granite 4.0 Tiny e Llama 3.2 — e um modelo comercial de grande porte — Claude —, avaliando suas eficácias na classificação binária de e-mails como tentativas de phishing ou mensagens legítimas. O método consiste na construção de um dataset balanceado entre as duas classes, na padronização de um protocolo único de prompting com saída estruturada em JSON e parâmetros de decodificação controlados, e na submissão das mesmas amostras a todos os modelos sob condições equivalentes. A análise apoia-se em métricas estatísticas de classificação binária — precisão, revocação, F1-Score, taxas de falsos positivos e falsos negativos —, complementadas por métricas operacionais de latência e custo de inferência. Espera-se evidenciar que modelos leves executados localmente possam oferecer desempenho competitivo em relação ao modelo comercial de referência, viabilizando uma alternativa que concilie eficácia defensiva, soberania sobre os dados e viabilidade econômica para organizações de pequeno e médio porte.
+
+Gemma 3 12 B roda em 6,6 GB. Perguntar se troco para esse ao invés do que estou usando. \citeonline{yvinec2025gemma3qat}
+
+Em conclusões finais lembrar de incluir que o melhor resultado pode não ser o melhor overall, pois não é analisado Prompt Injection.
+
+
+gemma3 consumiu aproximadamente 90% da memória + 6 GB de RAM
+Qwen3 consumiu aproximadamente
+Granite 4.0 Tiny consumiu aproximadamente 90% da memória VRAM + 8 GB de RAM

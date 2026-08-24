@@ -1,0 +1,204 @@
+
+% TODO: diminuir fonte dos títulos de capítulos
+
+% ==============================================================
+% TCC2 - Sistemas de Informação - UFSC
+% Autor: Pedro Henrique Scheidt Prazeres
+% Classe: abntex2 (compatível com Overleaf)
+% Normas: ABNT NBR 14724:2011, NBR 6023:2018, NBR 6028:2021
+% Margens: 3cm sup/esq, 2cm inf/dir  (ABNT NBR 14724:2011)
+% Fonte: Arial (via helvet) tamanho 12, espaçamento 1,5
+% ==============================================================
+
+\documentclass[
+  12pt,           % tamanho da fonte
+  openright,      % capítulos em páginas ímpares
+  oneside,        % impressão somente frente
+  a4paper,        % papel A4
+  chapter=TITLE,  % capítulos em maiúsculas (ABNT)
+  section=TITLE,  % seções em maiúsculas (ABNT)
+  english,        % idioma adicional
+  brazil          % idioma principal
+]{abntex2}
+
+% -----------------------------------------------------------------------
+% PACOTES
+% -----------------------------------------------------------------------
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}                         % fontes vetoriais (Type1) p/ \texttt e math; evita erro de font expansion do microtype
+\usepackage{helvet}                          % Arial (substituto livre)
+\renewcommand{\familydefault}{\sfdefault}    % sans-serif como padrão
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{threeparttable}                  % notas de rodapé presas à tabela
+\usepackage{longtable}
+\usepackage{multirow}
+\usepackage{makecell}
+\usepackage{amsmath,amssymb}
+\usepackage{url}
+\usepackage{makecell}
+\usepackage{lastpage}                        % \pageref{LastPage}
+\usepackage{enumitem}                        % personalização de listas
+\usepackage[brazil]{babel}
+% desativa o shorthand de " do babel (que engolia o espaço seguinte, ex.: "longo" nesse);
+% precisa ser anexado a \extrasbrazil pois babel reativa os shorthands em \begin{document}
+\addto\extrasbrazil{\shorthandoff{"}}
+\usepackage[table]{xcolor}
+\usepackage{graphicx}
+\usepackage[alf,abnt-etal-list=0]{abntex2cite} % citações ABNT autor-data
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{indentfirst}
+\usepackage{multirow}
+\usepackage{float}
+\usepackage{adjustbox}
+\usepackage{tikz}
+\usepackage{pdfpages}                        % inclusão do artigo (formato SBC) no apêndice
+
+
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+%\usepackage{natbib}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, calc, fit, backgrounds}
+
+% Cores usadas nos diagramas TikZ (figura da arquitetura)
+\definecolor{cProc}{HTML}{2563EB} % processo / função  (azul)
+\definecolor{cData}{HTML}{0D9488} % dado em memória    (verde-água)
+\definecolor{cExt}{HTML}{DC2626}  % serviço externo    (vermelho)
+\definecolor{cOut}{HTML}{7C3AED}  % arquivo de saída   (violeta)
+\definecolor{cCfg}{HTML}{D97706}  % configuração       (âmbar)
+
+% -----------------------------------------------------------------------
+% LISTAGENS (prompts / código)
+% -----------------------------------------------------------------------
+\usepackage{listings}
+\lstdefinestyle{prompt}{
+  basicstyle=\footnotesize\ttfamily,
+  breaklines=true,
+  breakautoindent=true,
+  columns=fullflexible,
+  keepspaces=true,
+  showstringspaces=false,
+  frame=single,
+  framesep=8pt,
+  rulecolor=\color{black!40},
+  xleftmargin=10pt,
+  xrightmargin=10pt,
+  aboveskip=6pt,
+  belowskip=6pt,
+  backgroundcolor=\color{gray!8}
+}
+
+% Estilo para o código-fonte Python reproduzido no apêndice. O mapeamento
+% literate é necessário porque o listings lê os caracteres UTF-8 dos
+% comentários (acentos, cedilha, seta) byte a byte e quebra sem ele.
+\lstdefinestyle{codigofonte}{
+  language=Python,
+  basicstyle=\scriptsize\ttfamily,
+  breaklines=true,
+  breakautoindent=true,
+  columns=fullflexible,
+  keepspaces=true,
+  showstringspaces=false,
+  numbers=left,
+  numberstyle=\tiny\color{black!50},
+  numbersep=8pt,
+  frame=single,
+  rulecolor=\color{black!40},
+  aboveskip=6pt,
+  belowskip=12pt,
+  backgroundcolor=\color{gray!8},
+  commentstyle=\itshape\color{black!60},
+  keywordstyle=\bfseries,
+  inputencoding=utf8,
+  extendedchars=true,
+  literate=%
+    {á}{{\'a}}1 {à}{{\`a}}1 {â}{{\^a}}1 {ã}{{\~a}}1
+    {é}{{\'e}}1 {ê}{{\^e}}1 {í}{{\'{\i}}}1
+    {ó}{{\'o}}1 {ô}{{\^o}}1 {õ}{{\~o}}1 {ú}{{\'u}}1
+    {ç}{{\c{c}}}1
+    {Á}{{\'A}}1 {Ã}{{\~A}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
+    {ª}{{\textordfeminine}}1
+    {→}{{$\rightarrow$}}1 {---}{{---}}1
+}
+
+% -----------------------------------------------------------------------
+% PSEUDOCÓDIGO (algoritmos)
+% -----------------------------------------------------------------------
+\usepackage[portuguese,linesnumbered,ruled,vlined]{algorithm2e}
+
+% -----------------------------------------------------------------------
+% AMBIENTE DE QUADRO (ABNT) — conteúdo qualitativo, distinto de Tabela.
+% Tem contador e lista (.loq) próprios; a legenda renderiza "Quadro N".
+% -----------------------------------------------------------------------
+\newfloat{quadro}{htbp}{loq}
+\floatname{quadro}{Quadro}
+
+% -----------------------------------------------------------------------
+% CONFIGURAÇÃO DO HYPERREF
+% -----------------------------------------------------------------------
+\hypersetup{
+  pdftitle   = {Análise Comparativa de Modelos de Linguagem para Detecção de Phishing por E-Mail},
+  pdfauthor  = {Pedro Henrique Scheidt Prazeres},
+  pdfsubject = {TCC -- Sistemas de Informação UFSC},
+  pdfkeywords= {Phishing, Modelos de Linguagem, Segurança de Dados, LLM, Segurança da Informação},
+  colorlinks = true,
+  linkcolor  = black,
+  citecolor  = black,
+  urlcolor   = black
+}
+
+% -----------------------------------------------------------------------
+% MARGENS — ABNT NBR 14724:2011
+% Superior 3 cm | Inferior 2 cm | Esquerda 3 cm | Direita 2 cm
+% -----------------------------------------------------------------------
+\setlrmarginsandblock{3cm}{2cm}{*}
+\setulmarginsandblock{3cm}{2cm}{*}
+\checkandfixthelayout
+
+% -----------------------------------------------------------------------
+% ESPAÇAMENTO — 1,5 no corpo (ABNT NBR 14724:2011)
+% -----------------------------------------------------------------------
+\OnehalfSpacing
+
+% -----------------------------------------------------------------------
+% INFORMAÇÕES DO TRABALHO
+% -----------------------------------------------------------------------
+\titulo{Análise Comparativa de Modelos de Linguagem para Detecção de Phishing por E-Mail}
+\autor{Pedro Henrique Scheidt Prazeres}
+\local{Florianópolis}
+\data{2026}
+\orientador{Prof. Ricardo Felipe Custodio, Dr.}
+\instituicao{%
+  Universidade Federal de Santa Catarina \\
+  Centro Tecnológico \\
+  Departamento de Informática e Estatística \\
+  Curso de Sistemas de Informação%
+}
+\tipotrabalho{Trabalho de Conclusão de Curso}
+\preambulo{Trabalho de Conclusão de Curso apresentado ao Curso de
+Sistemas de Informação da Universidade Federal de Santa Catarina como
+requisito parcial para a conclusão da disciplina INE5660 --- Trabalho
+de Conclusão de Curso II.}
+
+% ====================================================================
+% INÍCIO DO DOCUMENTO
+% ====================================================================
+\begin{document}
+
+\selectlanguage{brazil}
+\frenchspacing
+
+\chapter{Questões Teóricas}
+\input{chapters/q1.tex}
+\input{chapters/q2.tex}
+% \input{chapters/q3.tex}
+
+\bibliography{referencias}
+
+
+\end{document}
