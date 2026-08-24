@@ -2,12 +2,12 @@
 \label{q1}
 
 \subsection{Camada 2: Camada deEnlace de Dados}
-A Camada de Enlace de Dados observa defeitos e corrige se necessário no pacote \cite{wikipedia2021enlace}. É nessa camada que é definida e topologia, e nela que há o funcionamento dos switches de camada 2.
-Além disso, é nessa camada que é feito o controle de fluxo, para garantir que o emissor não envie dados rápido de mais para o receptor
+A Camada de Enlace de Dados observa defeitos e corrige se necessário no pacote~\cite{tanenbaum2003redes}. É nessa camada que é definida e topologia, e nela que há o funcionamento dos switches de camada 2~\cite{tanenbaum2003redes}.
+Além disso, nessa camada é feito o controle de fluxo, para garantir que o emissor não envie dados rápido de mais para o receptor~\cite{tanenbaum2003redes}
 
-Os protocolos mais utilizados são Ethernet e Wi\-fi, mas existem outros protocolos, como o token ring, FDDI (Fiber Distributed Data Interface), PPP (Point\-to\-Point Protocol), entre outros.
+Os protocolos mais utilizados são Ethernet e Wi\-fi, mas existem outros protocolos, como o token ring, FDDI (Fiber Distributed Data Interface), PPP (Point\-to\-Point Protocol), entre outros~\cite{tanenbaum2003redes}.
 
-O protocolo de endereçamento desta camada é o próprio Ethernet, que define o formato do quadro (frame) com os campos de endereço MAC de origem e destino. Os endereços MAC são físicos e permanentes, inerentes a cada dispositivo (computador, celular, etc.), e ficam associados às portas dos switches por meio da tabela MAC, conforme a Figura \ref{fig:q1_mac_table}
+O protocolo de endereçamento desta camada é o próprio Ethernet, que define o formato do frame com os campos de endereço MAC de origem e destino~\cite{CNN2026Lamix}. Os endereços MAC são físicos e permanentes, inerentes a cada dispositivo (computador, celular, etc.)~\cite{CNN2026Lamix}, e ficam associados às portas dos switches por meio da tabela MAC, conforme a Figura \ref{fig:q1_mac_table}
 
 \begin{figure}[H]
 \centering
@@ -17,13 +17,9 @@ O protocolo de endereçamento desta camada é o próprio Ethernet, que define o 
 \legend{Fonte: \citeonline{CNN2026Lamix}, convertida para png pelo Autor}
 \end{figure}
 
-Esta tabela MAC é construída pelo próprio switch, por meio do processo de aprendizado de endereços: a cada frame recebido em uma porta, o switch registra o endereço MAC de origem e o associa a essa porta, montando a tabela de forma dinâmica conforme o tráfego passa pelo equipamento.
+Esta tabela MAC é construída pelo próprio switch, por meio do processo de aprendizado de endereços: a cada frame recebido em uma porta, o switch registra o endereço MAC de origem e o associa a essa porta, montando a tabela de forma dinâmica conforme o tráfego passa pelo equipamento~\cite{CNN2026Lamix}.
 
 \subsection{Camada 3: Camada de Rede}
-A camada de Rede \cite{wikipedia2024rede} define o caminho dos dados por meio dos algorítmos de roteamento, como o RIP, que conta o número saltos como métrica de eficácia (mas não leva em conta o tempo de atraso possível em cada salto), ou o OSPF (Open Shortest Path First), que tem como base o algorítmo de Dijkstra; é nessa camada que operam os switches de camada 3, que comunicam sub-redes.
+Na camada de Rede, o protocolo responsável pelo endereçamento é o IP (Internet Protocol, nas versões IPv4 ou IPv6), que atribui a cada dispositivo um endereço lógico e envia os dados em datagramas, sem garantia de entrega: os datagramas podem chegar desordenados, duplicados ou mesmo não chegar~\cite{wikipedia2026ip}. O IP também permite o agrupamento dos dispositivos em sub-redes por meio do mascaramento, conferindo mais organização e segurança ao isolar máquinas em segmentos distintos~\cite{wikipedia2026subnet}.
 
-Ela utiliza os protocolos IP e ICMP.
-IP \cite{wikipedia2026ip}: Envia datagramas sem garantias, podendo chegar em parte desordenados, duplicados ou mesmo faltantes.
-ICMP \cite{wikipedia2026icmp}: Composto principalmente de Echo Request e Echo Reply, ele é utilizado quando se quer verificar uma falha de comunicação entre dois dispositivos, com o comando PING.
-
-Na camada de Rede também são definidos o IP e as subredes, por meio do mascaramento de IP, para conferir mais organizadas e seguras, isolando máquinas em subredes separadas.
+Além do IP, essa camada conta com protocolos de suporte à comunicação, como o ICMP, empregado no diagnóstico de falhas entre dispositivos (como o comando \texttt{PING}, baseado em mensagens \texttt{Echo Request} e \texttt{Echo Reply}), e com protocolos de roteamento, como o RIP e o OSPF, responsáveis por definir o caminho percorrido pelos dados entre redes distintas~\cite{RIPandOSPF}. O RIP utiliza o número de saltos como métrica, sem considerar o atraso de cada trecho, enquanto o OSPF baseia-se no algoritmo de Dijkstra para calcular o caminho mais curto~\cite{RIPandOSPF}. É também nessa camada que operam os switches de camada 3, responsáveis por interligar sub-redes distintas.
