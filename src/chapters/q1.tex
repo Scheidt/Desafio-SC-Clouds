@@ -7,7 +7,7 @@ Além disso, é nessa camada que é feito o controle de fluxo, para garantir que
 
 Os protocolos mais utilizados são Ethernet e Wi\-fi, mas existem outros protocolos, como o token ring, FDDI (Fiber Distributed Data Interface), PPP (Point\-to\-Point Protocol), entre outros.
 
-Esta camada utiliza os endereços MAC dos dispositivos, que são os endereços físicos e permanentes  inerentes a cada computador, celular, etc; e os atrela às portas dos switches, por meio da tabela MAC, conforme a Figura \ref{fig:q1_mac_table}.
+O protocolo de endereçamento desta camada é o próprio Ethernet, que define o formato do quadro (frame) com os campos de endereço MAC de origem e destino. Os endereços MAC são físicos e permanentes, inerentes a cada dispositivo (computador, celular, etc.), e ficam associados às portas dos switches por meio da tabela MAC, conforme a Figura \ref{fig:q1_mac_table}
 
 \begin{figure}[H]
 \centering
@@ -17,7 +17,7 @@ Esta camada utiliza os endereços MAC dos dispositivos, que são os endereços f
 \legend{Fonte: \citeonline{CNN2026Lamix}, convertida para png pelo Autor}
 \end{figure}
 
-Esta tabela MAC é fruto de mensagens do protocolo ARP, no qual uma máquina faz uma requisição de um endereço de IP, e os switches fazem broadcast de ARP Requests até o alvo da requisição ser encontrado.
+Esta tabela MAC é construída pelo próprio switch, por meio do processo de aprendizado de endereços: a cada frame recebido em uma porta, o switch registra o endereço MAC de origem e o associa a essa porta, montando a tabela de forma dinâmica conforme o tráfego passa pelo equipamento.
 
 \subsection{Camada 3: Camada de Rede}
 A camada de Rede \cite{wikipedia2024rede} define o caminho dos dados por meio dos algorítmos de roteamento, como o RIP, que conta o número saltos como métrica de eficácia (mas não leva em conta o tempo de atraso possível em cada salto), ou o OSPF (Open Shortest Path First), que tem como base o algorítmo de Dijkstra; é nessa camada que operam os switches de camada 3, que comunicam sub-redes.
