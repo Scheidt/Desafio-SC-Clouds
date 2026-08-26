@@ -3,7 +3,7 @@ Uma das principais diferenças entre as duas abordagens é o custo. Sistemas pro
 
 Adicionalmente, soluções proprietárias, como o Windows não oferecem transparência quanto aos seus mecanismos internos, devido a sua natureza fechada, o que impede a auditoria pública do código e mantém pontos de falha desconhecidos sob segurança por obscuridade, prática já considerada ultrapassada. Já códigos Open Source como o Ubuntu, tem o código-fonte amplamente auditável pela comunidade, permitindo maior conhecimento sobre os processos em execução e de forma geral reduzindo a presença de bloatware. Essa abertura de código também garante flexibilidade, uma vez que o usuário ou a empresa que adota Open Source pode modificar o sistema livremente para adequá-lo às próprias necessidades, algo que soluções proprietárias como o Windows não permitem.
 
-Notar-se-há que ao contrário do que se é comumente pensado, a natureza de Open Source não significa a completa ausência de Bloatware ou telemetria. Destaca-se, por exemplo, a coleta de telemetria no Ubuntu, nominalmente os pacotes "Popularity Contest"~\cite{popularityContest} (desabilitado por padrão) e "Ubuntu Insights"~\cite{ubuntuInsights} (também desabilitado por padrão em maioria das distros). Todavia, a coleta de telemetria em soluções Open Source é geralmente mais transparente, com a possibilidade de auditoria do código-fonte e geralmente opt-in ou ao menos com opção de desativação, enquanto soluções proprietárias como o Windows não permitem tal auditoria e podem estar ocultas ao usuário.
+Notar-se-há que ao contrário do que se é comumente pensado, a natureza de Open Source não significa a completa ausência de Bloatware ou telemetria. Destaca-se, que há, por exemplo, a coleta de telemetria no Ubuntu, nominalmente os pacotes "Popularity Contest"~\cite{popularityContest} (desabilitado por padrão) e "Ubuntu Insights"~\cite{ubuntuInsights} (também desabilitado por padrão em maioria das distros). Todavia, a coleta de telemetria em soluções Open Source é geralmente mais transparente, com a possibilidade de auditoria do código-fonte e geralmente opt-in ou ao menos com opção de desativação, enquanto soluções proprietárias como o Windows não permitem tal auditoria e podem estar ocultas ao usuário.
 
 Outro ponto relevante é a dependência de fornecedor. A adoção do Windows tende a atrelar a empresa a todo um ecossistema Microsoft (Active Directory, Office, .NET, entre outros), criando um ciclo vicioso no qual as unicas soluções disponíveis são as do fornecedor e/ou parceiros. Soluções Open Source, por seu direito de fork, reduzem essa dependência, embora a existência de múltiplas distribuições possa gerar fragmentação e exigir mais cuidado na escolha da distro adequada.
 
@@ -11,7 +11,7 @@ Outro ponto relevante é a dependência de fornecedor. A adoção do Windows ten
 \subsubsection{Windows:}
 Positivos:
 \begin{itemize}
-	\item Por ser o SO mais utilizado, é compatível com quase todos os aplicativos utilizados no mundo, desde ferramentas profissionais até jogos;
+	\item Por ser o SO mais utilizado, é compatível com quase todos os aplicativos desktop utilizados no mundo, desde ferramentas profissionais até jogos;
 	\item Suporte profissional direto do fabricante, incluindo suporte 24 horas em planos corporativos;
 	\item Facilidade de uso: o design e layout do Windows é aquele ao qual a maioria dos profissionais está acostumada, funcionando como padrão de usabilidade de mercado (embora nem sempre da forma mais eficiente);
 	\item Melhor suporte a drivers e hardware, pois fabricantes costumam priorizar compatibilidade com Windows.
@@ -28,7 +28,7 @@ Negativos:
 	\item Ciclo vicioso de compatibilidade em torno do ecossistema Microsoft.
 \end{itemize}
 
-\subsubsection{Open Source:}
+\subsubsection{Ubuntu:}
 Positivos:
 \begin{itemize}
 	\item Não há custo de licença;
@@ -42,11 +42,11 @@ Positivos:
 
 Negativos:
 \begin{itemize}
-	\item Menor compatibilidade com aplicativos, por ter uma comunidade de desenvolvedores menor que a do Windows;
+	\item Menor compatibilidade com aplicativos de desktop, por ter parcela do mercado consumidor muito menor que do Windows;
 	\item Suporte a hardware e drivers mais limitado, sobretudo para periféricos e componentes recentes;
 	\item Falhas de segurança conhecidas publicamente enquanto ainda estão sendo corrigidas, já que não há ocultamento das vulnerabilidades, ou publicação das vulnerabilidade em commits de correção, que destaca os exploits contra quem não atualizou;
 	\item Fragmentação entre distribuições, o que pode dificultar a escolha e a padronização dentro de uma empresa;
 	\item Necessidade de treinamento da equipe, caso não haja familiaridade com o sistema.
 \end{itemize}
 
-Portanto, observa-se que a escolha entre as duas abordagens depende do contexto de uso. Em ambientes de servidor e infraestrutura de nuvem, soluções Open Source predominam em razão do custo, do menor footprint e da flexibilidade de customização. Todavia, em ambientes de desktop corporativo, o Windows é preferido pela compatibilidade com softwares de escritório e pela familiaridade dos usuários. Portanto, a decisão entre uma abordagem proprietária e uma Open Source deve considerar não apenas custo de licença, mas também suporte, segurança, flexibilidade e o cenário de infraestrutura e treinamento em que a solução será empregada.
+Portanto, observa-se que a escolha entre as duas abordagens depende do contexto de uso. Em ambientes de servidor e infraestrutura de nuvem, soluções Open Source predominam, todavia em ambientes de desktop corporativo, o Windows é preferido pela compatibilidade com softwares de escritório e pela familiaridade dos usuários. Portanto, a decisão entre uma abordagem proprietária e uma Open Source deve considerar não apenas custo de licença, mas também suporte, segurança, flexibilidade e o cenário de infraestrutura e treinamento em que a solução será empregada.
