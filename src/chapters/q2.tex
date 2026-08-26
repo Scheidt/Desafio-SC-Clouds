@@ -1,9 +1,11 @@
-\section{Q2. Qual a diferença entre adotar uma solução proprietária como o sistema operacional Windows quando comparado a adoção de uma solução Open source como o sistema operacional Ubuntu? Quais seriam os pontos negativos e positivos de cada abordagem?}
+\section{Qual a diferença entre adotar uma solução proprietária como o sistema operacional Windows quando comparado a adoção de uma solução Open source como o sistema operacional Ubuntu? Quais seriam os pontos negativos e positivos de cada abordagem?}
 Uma das principais diferenças entre as duas abordagens é o custo. Sistemas proprietários como o Windows exigem aquisição de licença via pagamento, enquanto sistemas Open Source como o Ubuntu têm licença gratuita. Todavia essa diferença não se resume simplesmente ao preço de aquisição. Uma vez que em geral as pessoas estão mais acostumadas com solições proprietarias, a adoção de soluções gratuitas também podem gerar custos indiretos, como treinamento de equipe e eventual contratação de suporte especializado, de modo que o custo total de adoção nem sempre acompanha o custo da licença, especialmente para empresas grandes não especializadas em tecnologia (área a qual concentra maior quantidade de profissionais familiarizados com soluções Open-Source).
 
-Adicionalmente, soluções proprietárias, como o Windows não oferecem transparência quanto aos seus mecanismos internos, devido a sua natureza fechada, o que impede a auditoria pública do código e mantém pontos de falha desconhecidos sob segurança por obscurantismo, prática já considerada ultrapassada. Já códigos Open Source como o Ubuntu, tem o código-fonte amplamente auditável pela comunidade, permitindo maior conhecimento sobre os processos em execução e reduzindo a presença de bloatware. Essa abertura de código também garante flexibilidade: o usuário ou a empresa que adota Open Source pode modificar o sistema livremente para adequá-lo às próprias necessidades, algo que soluções proprietárias como o Windows não permitem.
+Adicionalmente, soluções proprietárias, como o Windows não oferecem transparência quanto aos seus mecanismos internos, devido a sua natureza fechada, o que impede a auditoria pública do código e mantém pontos de falha desconhecidos sob segurança por obscuridade, prática já considerada ultrapassada. Já códigos Open Source como o Ubuntu, tem o código-fonte amplamente auditável pela comunidade, permitindo maior conhecimento sobre os processos em execução e de forma geral reduzindo a presença de bloatware. Essa abertura de código também garante flexibilidade, uma vez que o usuário ou a empresa que adota Open Source pode modificar o sistema livremente para adequá-lo às próprias necessidades, algo que soluções proprietárias como o Windows não permitem.
 
-Outro ponto relevante é a dependência de fornecedor. A adoção do Windows tende a atrelar a empresa a todo um ecossistema Microsoft (Active Directory, Office, .NET, entre outros), criando um ciclo vicioso no qual as unicas soluções disponíveis são as do fornecedor e/ou parceiros. Soluções Open Source, por não pertencerem a uma única empresa, reduzem essa dependência, embora a existência de múltiplas distribuições possa gerar fragmentação e exigir mais cuidado na escolha da distro adequada.
+Notar-se-há que ao contrário do que se é comumente pensado, a natureza de Open Source não significa a completa ausência de Bloatware ou telemetria. Destaca-se, por exemplo, a coleta de telemetria no Ubuntu, nominalmente os pacotes "Popularity Contest"~\cite{popularityContest} (desabilitado por padrão) e "Ubuntu Insights"~\cite{ubuntuInsights} (também desabilitado por padrão em maioria das distros). Todavia, a coleta de telemetria em soluções Open Source é geralmente mais transparente, com a possibilidade de auditoria do código-fonte e geralmente opt-in ou ao menos com opção de desativação, enquanto soluções proprietárias como o Windows não permitem tal auditoria e podem estar ocultas ao usuário.
+
+Outro ponto relevante é a dependência de fornecedor. A adoção do Windows tende a atrelar a empresa a todo um ecossistema Microsoft (Active Directory, Office, .NET, entre outros), criando um ciclo vicioso no qual as unicas soluções disponíveis são as do fornecedor e/ou parceiros. Soluções Open Source, por seu direito de fork, reduzem essa dependência, embora a existência de múltiplas distribuições possa gerar fragmentação e exigir mais cuidado na escolha da distro adequada.
 
 \subsection{Pontos Positivos e Negativos:}
 \subsubsection{Windows:}
@@ -18,7 +20,7 @@ Positivos:
 Negativos:
 \begin{itemize}
 	\item Custo da licença;
-	\item Segurança por obscurantismo;
+	\item Segurança por obscuridade;
 	\item Bloatware;
 	\item Falta de transparência;
 	\item Vulnerabilidades mais conhecidas e exploradas, por ser o SO mais utilizado;
@@ -32,9 +34,9 @@ Positivos:
 	\item Não há custo de licença;
 	\item Transparência e código auditável pela comunidade;
 	\item Comunidade rica e colaborativa, que troca constantemente informações, dados e guias;
-	\item Maior segurança em partes, pois a ausência de segurança por obscurantismo favorece a descoberta e correção de falhas pela própria comunidade;
+	\item Maior segurança em partes, pois a ausência de segurança por obscuridade favorece a descoberta e correção de falhas pela própria comunidade;
 	\item Flexibilidade para modificar o código-fonte e adequar o sistema à realidade de cada usuário ou empresa;
-	\item Redução da dependência de uma única empresa fornecedora, já que não depende de uma única empresa fornecedora;
+	\item Redução da dependência de uma única empresa fornecedora;
 	\item Disponibilidade de suporte profissional pago para empresas que precisam de SLA formal, como o Ubuntu Pro da Canonical ou o suporte da Red Hat, o que reduz a distância em relação ao suporte oferecido por soluções proprietárias, embora em uma escala menor se comparado à Microsoft.
 \end{itemize}
 
@@ -42,7 +44,7 @@ Negativos:
 \begin{itemize}
 	\item Menor compatibilidade com aplicativos, por ter uma comunidade de desenvolvedores menor que a do Windows;
 	\item Suporte a hardware e drivers mais limitado, sobretudo para periféricos e componentes recentes;
-	\item Falhas de segurança conhecidas publicamente enquanto ainda estão sendo corrigidas, já que não há ocultamento das vulnerabilidades;
+	\item Falhas de segurança conhecidas publicamente enquanto ainda estão sendo corrigidas, já que não há ocultamento das vulnerabilidades, ou publicação das vulnerabilidade em commits de correção, que destaca os exploits contra quem não atualizou;
 	\item Fragmentação entre distribuições, o que pode dificultar a escolha e a padronização dentro de uma empresa;
 	\item Necessidade de treinamento da equipe, caso não haja familiaridade com o sistema.
 \end{itemize}
