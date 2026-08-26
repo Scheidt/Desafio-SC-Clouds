@@ -1,104 +1,96 @@
-
-% TODO: diminuir fonte dos títulos de capítulos
-
-% ==============================================================
-% TCC2 - Sistemas de Informação - UFSC
-% Autor: Pedro Henrique Scheidt Prazeres
-% Classe: abntex2 (compatível com Overleaf)
-% Normas: ABNT NBR 14724:2011, NBR 6023:2018, NBR 6028:2021
-% Margens: 3cm sup/esq, 2cm inf/dir  (ABNT NBR 14724:2011)
-% Fonte: Arial (via helvet) tamanho 12, espaçamento 1,5
-% ==============================================================
-
-\documentclass[
-  12pt,           % tamanho da fonte
-  openright,      % capítulos em páginas ímpares
-  oneside,        % impressão somente frente
-  a4paper,        % papel A4
-  chapter=TITLE,  % capítulos em maiúsculas (ABNT)
-  section=TITLE,  % seções em maiúsculas (ABNT)
-  english,        % idioma adicional
-  brazil          % idioma principal
-]{abntex2}
+\documentclass[11pt,a4paper]{article}
 
 % -----------------------------------------------------------------------
-% PACOTES
+% RAIZ DAS FONTES — permite compilar tanto da raiz do repositório
+% (latexmk -pdf -outdir=out src/main.tex) quanto de dentro de src/
+% -----------------------------------------------------------------------
+\IfFileExists{chapters/q1.tex}{\newcommand{\srcroot}{}}{\newcommand{\srcroot}{src/}}
+
+% -----------------------------------------------------------------------
+% CODIFICAÇÃO, IDIOMA E FONTES
 % -----------------------------------------------------------------------
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\usepackage{lmodern}                         % fontes vetoriais (Type1) p/ \texttt e math; evita erro de font expansion do microtype
-\usepackage{helvet}                          % Arial (substituto livre)
-\renewcommand{\familydefault}{\sfdefault}    % sans-serif como padrão
+\usepackage{lmodern}                 % corpo em serifa (Latin Modern)
+\usepackage[scaled=0.92]{helvet}     % títulos em sans-serif (Arial/Helvetica)
 \usepackage{microtype}
+
+\usepackage[brazilian]{babel}
+\addto\extrasbrazilian{\shorthandoff{"}}
+\usepackage{csquotes}
+
+% -----------------------------------------------------------------------
+% LAYOUT DA PÁGINA
+% -----------------------------------------------------------------------
+\usepackage[a4paper,left=2.5cm,right=2.5cm,top=2.8cm,bottom=2.5cm,
+            headheight=22pt,footskip=1.2cm]{geometry}
+\usepackage{setspace}
+\linespread{1.08}                    % respiro leve, sem o 1,5 da ABNT
+\setlength{\parskip}{0.55em}
+\setlength{\parindent}{0pt}          % parágrafos separados por espaço, não recuo
+\usepackage{ragged2e}
+
+% -----------------------------------------------------------------------
+% TABELAS, LISTAS, FIGURAS
+% -----------------------------------------------------------------------
 \usepackage{graphicx}
+\graphicspath{{src/}{./}}
 \usepackage{xcolor}
 \usepackage{booktabs}
 \usepackage{tabularx}
-\usepackage{threeparttable}                  % notas de rodapé presas à tabela
-\usepackage{longtable}
 \usepackage{multirow}
 \usepackage{makecell}
 \usepackage{amsmath,amssymb}
 \usepackage{url}
-\usepackage{makecell}
-\usepackage{lastpage}                        % \pageref{LastPage}
-\usepackage{enumitem}                        % personalização de listas
-\usepackage[brazil]{babel}
-% desativa o shorthand de " do babel (que engolia o espaço seguinte, ex.: "longo" nesse);
-% precisa ser anexado a \extrasbrazil pois babel reativa os shorthands em \begin{document}
-\addto\extrasbrazil{\shorthandoff{"}}
-\usepackage[table]{xcolor}
-\usepackage{graphicx}
-\usepackage[alf,abnt-etal-list=0]{abntex2cite} % citações ABNT autor-data
-\usepackage{hyperref}
-\usepackage{graphicx}
-\usepackage{indentfirst}
-\usepackage{multirow}
+\usepackage{enumitem}
+\setlist[itemize]{leftmargin=1.4em,itemsep=0.25em,topsep=0.35em,parsep=0pt}
 \usepackage{float}
-\usepackage{adjustbox}
-\usepackage{tikz}
-\usepackage{pdfpages}                        % inclusão do artigo (formato SBC) no apêndice
+\usepackage[font=small,labelfont={bf,sf},justification=centering]{caption}
 
-
-\usepackage{pgfplots}
-\pgfplotsset{compat=1.18}
-%\usepackage{natbib}
-\usetikzlibrary{shapes.geometric, arrows.meta, positioning, calc, fit, backgrounds}
-
-% Cores usadas nos diagramas TikZ (figura da arquitetura)
-\definecolor{cProc}{HTML}{2563EB} % processo / função  (azul)
-\definecolor{cData}{HTML}{0D9488} % dado em memória    (verde-água)
-\definecolor{cExt}{HTML}{DC2626}  % serviço externo    (vermelho)
-\definecolor{cOut}{HTML}{7C3AED}  % arquivo de saída   (violeta)
-\definecolor{cCfg}{HTML}{D97706}  % configuração       (âmbar)
+% Cores do documento
+\definecolor{cLink}{HTML}{1D4E89}    % azul discreto para links e citações
+\definecolor{cRule}{HTML}{9AA5B1}    % cinza das linhas de cabeçalho/rodapé
 
 % -----------------------------------------------------------------------
-% LISTAGENS (prompts / código)
+% TÍTULOS
+% -----------------------------------------------------------------------
+\usepackage{titlesec}
+
+% Numeração das seções como Q1, Q2, Q3 (subseções: Q1.1, Q1.2, ...)
+\renewcommand{\thesection}{Q\arabic{section}}
+
+\titleformat{\section}[block]
+  {\sffamily\large\bfseries\raggedright}{\thesection}{0.6em}{}
+  [\vspace{-0.4ex}{\color{cRule}\rule{\linewidth}{0.4pt}}]
+\titleformat{\subsection}[block]
+  {\sffamily\normalsize\bfseries\raggedright}{\thesubsection}{0.6em}{}
+\titleformat{\subsubsection}[block]
+  {\sffamily\normalsize\itshape\raggedright}{\thesubsubsection}{0.6em}{}
+
+\titlespacing*{\section}      {0pt}{2.6ex plus 1ex minus .2ex}{1.4ex plus .2ex}
+\titlespacing*{\subsection}   {0pt}{2.0ex plus .8ex minus .2ex}{0.8ex plus .2ex}
+\titlespacing*{\subsubsection}{0pt}{1.6ex plus .6ex minus .2ex}{0.6ex plus .2ex}
+
+% -----------------------------------------------------------------------
+% CABEÇALHO E RODAPÉ
+% -----------------------------------------------------------------------
+\usepackage{lastpage}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{cRule}\leaders\hrule height \headrulewidth\hfill}}
+\fancyhead[L]{\footnotesize\sffamily Desafio Técnico SC Clouds}
+\fancyhead[R]{\footnotesize\sffamily Questões Teóricas}
+\fancyfoot[C]{\footnotesize\sffamily\thepage\ de \pageref{LastPage}}
+
+% -----------------------------------------------------------------------
+% LISTAGENS (código)
 % -----------------------------------------------------------------------
 \usepackage{listings}
-\lstdefinestyle{prompt}{
-  basicstyle=\footnotesize\ttfamily,
-  breaklines=true,
-  breakautoindent=true,
-  columns=fullflexible,
-  keepspaces=true,
-  showstringspaces=false,
-  frame=single,
-  framesep=8pt,
-  rulecolor=\color{black!40},
-  xleftmargin=10pt,
-  xrightmargin=10pt,
-  aboveskip=6pt,
-  belowskip=6pt,
-  backgroundcolor=\color{gray!8}
-}
-
-% Estilo para o código-fonte Python reproduzido no apêndice. O mapeamento
-% literate é necessário porque o listings lê os caracteres UTF-8 dos
-% comentários (acentos, cedilha, seta) byte a byte e quebra sem ele.
 \lstdefinestyle{codigofonte}{
   language=Python,
-  basicstyle=\scriptsize\ttfamily,
+  basicstyle=\footnotesize\ttfamily,
   breaklines=true,
   breakautoindent=true,
   columns=fullflexible,
@@ -116,6 +108,7 @@
   keywordstyle=\bfseries,
   inputencoding=utf8,
   extendedchars=true,
+  % o listings lê os bytes UTF-8 dos comentários um a um e quebra sem este mapeamento
   literate=%
     {á}{{\'a}}1 {à}{{\`a}}1 {â}{{\^a}}1 {ã}{{\~a}}1
     {é}{{\'e}}1 {ê}{{\^e}}1 {í}{{\'{\i}}}1
@@ -123,82 +116,69 @@
     {ç}{{\c{c}}}1
     {Á}{{\'A}}1 {Ã}{{\~A}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
     {ª}{{\textordfeminine}}1
-    {→}{{$\rightarrow$}}1 {---}{{---}}1
+    {→}{{$\rightarrow$}}1
 }
+\lstset{style=codigofonte}
 
 % -----------------------------------------------------------------------
-% PSEUDOCÓDIGO (algoritmos)
+% REFERÊNCIAS
 % -----------------------------------------------------------------------
-\usepackage[portuguese,linesnumbered,ruled,vlined]{algorithm2e}
+\usepackage[backend=biber,
+            style=numeric-comp,
+            sorting=none,
+            maxbibnames=99,
+            giveninits=true,
+            url=true, doi=false, isbn=false]{biblatex}
+\IfFileExists{referencias.bib}
+  {\addbibresource{referencias.bib}}
+  {\addbibresource{src/referencias.bib}}
+
+\newcommand{\citeonline}[1]{\textcite{#1}}
+% legenda de fonte sob figuras/tabelas
+\newcommand{\legend}[1]{\par\vspace{0.3em}{\footnotesize #1\par}}
 
 % -----------------------------------------------------------------------
-% AMBIENTE DE QUADRO (ABNT) — conteúdo qualitativo, distinto de Tabela.
-% Tem contador e lista (.loq) próprios; a legenda renderiza "Quadro N".
+% HYPERREF
 % -----------------------------------------------------------------------
-\newfloat{quadro}{htbp}{loq}
-\floatname{quadro}{Quadro}
-
-% -----------------------------------------------------------------------
-% CONFIGURAÇÃO DO HYPERREF
-% -----------------------------------------------------------------------
+\usepackage[hidelinks]{hyperref}
 \hypersetup{
-  pdftitle   = {Análise Comparativa de Modelos de Linguagem para Detecção de Phishing por E-Mail},
+  pdftitle   = {Desafio Técnico SC Clouds — Questões Teóricas},
   pdfauthor  = {Pedro Henrique Scheidt Prazeres},
-  pdfsubject = {TCC -- Sistemas de Informação UFSC},
-  pdfkeywords= {Phishing, Modelos de Linguagem, Segurança de Dados, LLM, Segurança da Informação},
+  pdfsubject = {Processo seletivo de estágio — SC Clouds},
+  pdfkeywords= {Modelo OSI, Camada 2, Camada 3, Software Proprietário, Open Source},
   colorlinks = true,
-  linkcolor  = black,
-  citecolor  = black,
-  urlcolor   = black
+  linkcolor  = cLink,
+  citecolor  = cLink,
+  urlcolor   = cLink,
+  breaklinks = true
 }
-
-% -----------------------------------------------------------------------
-% MARGENS — ABNT NBR 14724:2011
-% Superior 3 cm | Inferior 2 cm | Esquerda 3 cm | Direita 2 cm
-% -----------------------------------------------------------------------
-\setlrmarginsandblock{3cm}{2cm}{*}
-\setulmarginsandblock{3cm}{2cm}{*}
-\checkandfixthelayout
-
-% -----------------------------------------------------------------------
-% ESPAÇAMENTO — 1,5 no corpo (ABNT NBR 14724:2011)
-% -----------------------------------------------------------------------
-\OnehalfSpacing
-
-% -----------------------------------------------------------------------
-% INFORMAÇÕES DO TRABALHO
-% -----------------------------------------------------------------------
-\titulo{Análise Comparativa de Modelos de Linguagem para Detecção de Phishing por E-Mail}
-\autor{Pedro Henrique Scheidt Prazeres}
-\local{Florianópolis}
-\data{2026}
-\orientador{Prof. Ricardo Felipe Custodio, Dr.}
-\instituicao{%
-  Universidade Federal de Santa Catarina \\
-  Centro Tecnológico \\
-  Departamento de Informática e Estatística \\
-  Curso de Sistemas de Informação%
-}
-\tipotrabalho{Trabalho de Conclusão de Curso}
-\preambulo{Trabalho de Conclusão de Curso apresentado ao Curso de
-Sistemas de Informação da Universidade Federal de Santa Catarina como
-requisito parcial para a conclusão da disciplina INE5660 --- Trabalho
-de Conclusão de Curso II.}
+\urlstyle{same}
 
 % ====================================================================
-% INÍCIO DO DOCUMENTO
+% DOCUMENTO
 % ====================================================================
 \begin{document}
 
-\selectlanguage{brazil}
+\selectlanguage{brazilian}
 \frenchspacing
 
-\chapter{Questões Teóricas}
-\input{chapters/q1.tex}
-\input{chapters/q2.tex}
-\input{chapters/q3.tex}
+% ---------------------- Cabeçalho do relatório ----------------------
+\begin{center}
+  {\sffamily\LARGE\bfseries Desafio Técnico SC Clouds\par}
+  \vspace{0.4em}
+  {\sffamily\large Primeira Etapa: Questões Teóricas\par}
+  \vspace{0.9em}
+  {\normalsize Pedro Henrique Scheidt Prazeres\par}
+  {\footnotesize Florianópolis, \today\par}
+\end{center}
+\vspace{0.6em}
+{\color{cRule}\rule{\linewidth}{0.8pt}}
+\vspace{0.4em}
 
-\bibliography{referencias}
+\input{\srcroot chapters/q1.tex}
+\input{\srcroot chapters/q2.tex}
+\input{\srcroot chapters/q3.tex}
 
+\printbibliography[title={Referências}]
 
 \end{document}
