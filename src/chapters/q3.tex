@@ -7,6 +7,12 @@ Um projeto Open Source é aquele cujo código-fonte é distribuído publicamente
 
 Embora muito confundidos, código aberto não é a somente a disponibilização do código-fonte. A simples publicação do código-fonte não torna um projeto Open Source, uma vez que licenças como a Business Source License~\cite{businessSourceLicense} e a Server Side Public License~\cite{serverSidePublicLicense} permitem a leitura do código, porém impõem restrições de uso comercial ou de operação como serviço que as afastam dos critérios da OSI~\cite{osi2007definition}. Pelo mesmo motivo, "Open Source" não equivale a gratuidade, dado que uma licença pode dispensar pagamento pelo direito de uso, mas não proibir os custos de operação, suporte e adaptação.
 
+Além da licença, um projeto Open Source se caracteriza por um processo de desenvolvimento público. O código é mantido em repositório de acesso aberto, no qual o histórico de alterações, o registro de defeitos e as propostas de mudança ficam visíveis a qualquer interessado~\cite{ibm2024opensource}. As contribuições externas chegam por solicitações de incorporação submetidas à revisão dos mantenedores, e alterações de maior impacto costumam passar por processo formal de proposta, como as RFC do Rust ou as PEP do Python, que documentam a justificativa técnica antes da implementação.
+
+A comunidade em torno do projeto divide-se, em geral, entre mantenedores, responsáveis por aceitar ou recusar contribuições e definir o rumo técnico, e contribuidores eventuais, que enviam correções pontuais. Como a licença assegura o direito de redistribuir versões modificadas, discordâncias quanto à condução do projeto podem resultar em derivação, na qual parte da comunidade passa a manter uma versão independente. Esse direito funciona como salvaguarda contra decisões unilaterais de quem controla o repositório original, conforme se observou nos casos do OpenTofu, do OpenSearch e do Valkey~\cite{opentofu2023}.
+
+A forma de governança varia. Há projetos conduzidos por um mantenedor central com autoridade final sobre as decisões técnicas, modelo historicamente adotado pelo Linux e pelo Python. Outros são geridos por comitês eleitos ou por fundações sem fins lucrativos, como a Apache Software Foundation, a Linux Foundation e a Cloud Native Computing Foundation, que detêm as marcas e os ativos do projeto e impõem decisão colegiada. Há ainda projetos mantidos por uma única empresa, que publica o código sob licença aberta porém concentra as decisões, arranjo que preserva as liberdades da licença mas não elimina a dependência estratégica do fornecedor. 
+
 As liberdades concedidas variam conforme a licença adotada, e é a escolha desta licença que determina as obrigações de quem vier utilizar o software aberto \cite{fsf2026licencas}, como, por exemplo:
 
 \begin{itemize} 
@@ -20,21 +26,16 @@ Ademais, praticamente todas essas licenças incluem cláusula de exclusão de ga
 
 \subsection{Como empresas podem adotar tais tecnologias [...]?}
 
-Na prática, a adoção ocorre pela substituição de soluções proprietárias já em uso por equivalentes abertos, como a utilização de LibreOffice em substituição ao Microsoft Office, do PostgreSQL em substituição ao Microsoft SQL Server, ou do Ubuntu Server em substituição ao Windows Server. A adoção também pode ocorrer pela utilização de bibliotecas e frameworks Open Source no desenvolvimento de software proprietário, como o uso do React ou do Angular para desenvolvimento web, ou do TensorFlow para aprendizado de máquina.
+A adoção ocorre em graus distintos e não-excludentes de envolvimento, do simples consumo do software à participação em sua manutenção, como exemplo de modos de adoção temos:
 
-A substituição pode ser feita de maneira gradual, coexistindo as soluções proprietárias e Open Source, mas a barreira de adoção depende principalmente da elasticidade das capacidades das equipes afetadas. Portanto, é necessário avaliar não somente as capacidades dos sistemas abertos, mas também a curva de aprendizado da equipe, a disponibilidade de documentação e de profissionais familiarizados com as ferramentas, bem como a existência de suporte profissional pago, caso seja necessário.
-
-De todo modo, a adoção de ferramentas Open Source possui barreiras de entrada relatiamente baixas, uma vez que a licença permite o uso sem pagamento de royalties, e a disponibilidade de documentação e de profissionais familiarizados com as ferramentas é ampla. Ademais, há alternativas Open Source para praticamente todas as soluções proprietárias, o que permite a substituição gradual de soluções proprietárias por equivalentes abertos, como por exemplo:
 \begin{itemize}
-    \item LibreOffice em substituição ao Microsoft Office;
-    \item PostgreSQL em substituição ao Microsoft SQL Server;
-    \item Ubuntu Server em substituição ao Windows Server;
-    \item React ou Angular para desenvolvimento web;
-    \item Distros User-Friendly (como Ubuntu, Fedora e Mint) em substituição ao Windows ou macOS;
-    \item KVM no lugar do VMware VSphere;
-    \item Zabbix no lugar do PRTG;
-    \item TensorFlow para aprendizado de máquina.
+    \item Consumo: substituir soluções propprietárias por equivalentes abertos (Microsoft Office por LibreOffice, SQL Server por PostgreSQL, Windows Server por Ubuntu Server, VMware vSphere por KVM, PRTG por Zabbix) ou incorporar bibliotecas e frameworks abertos ao desenvolvimento próprio, como React, Angular ou TensorFlow. É o grau mais comum, e a substituição pode ser gradual, com coexistência das duas bordagens;
+    \item Contribuição ao projeto de origem: submeter correções e melhorias em vez de mantê-las em cópia interna, cujo custo cresce a cada versão publicada pelo projeto original, pois exige reaplicar as modificações continuamente;
+    \item Publicação de código próprio: liberar software interno sob licença aberta, como a Google fez com o Kubernetes e a Meta com o React, o que amplia a base de testes e pode estabelecer a ferramenta como padrão de mercado;
+    \item Patrocínio de projetos dos quais depende: financiar mantainers ou associar-se às fundações que hospedam essas iniciativas, resposta que o setor deu após o Heartbleed~\cite{heartbleed} com a criação da Core Infrastructure Initiative, sucedida pela Open Source Security Foundation~\cite{openssf}.
 \end{itemize}
+
+Em qualquer desses graus, a adoção em escala exige um processo formal, desde o inventário das dependências utilizadas e de suas dependências transitivas, a análise da documentação disponível e a existência de suporte pago. Uma vez que a adoção abrange a curva de aprendizado da equipe,esta análise de implementação não deve se limitar simplesmente Às capacidades técnicas do sistema aberto, mas abranger também o quesito humano de usabilidade.
 
 \subsection{[...] e o que isso acarreta?}
 Benefícios:
