@@ -1,13 +1,13 @@
-\section{Q1. Diferenciar as Camadas 2 e 3 do modelo OSI e indicar os protocolos utilizados para endereçamento nestas camadas.}
+\section{Diferenciar as Camadas 2 e 3 do modelo OSI e indicar os protocolos utilizados para endereçamento nestas camadas.}
 \label{q1}
 
 \subsection{Camada 2: Camada deEnlace de Dados}
-A Camada de Enlace de Dados observa defeitos e corrige se necessário no pacote~\cite{tanenbaum2003redes}. É nessa camada que é definida e topologia, e nela que há o funcionamento dos switches de camada 2~\cite{tanenbaum2003redes}.
+A Camada de Enlace de Dados observa defeitos e descarta se necessário o quadro de dado~\cite{tanenbaum2003redes}. É nessa camada que há o funcionamento dos switches de camada 2~\cite{tanenbaum2003redes}.
 Além disso, nessa camada é feito o controle de fluxo, para garantir que o emissor não envie dados rápido de mais para o receptor~\cite{tanenbaum2003redes}
 
-Os protocolos mais utilizados são Ethernet e Wi\-fi, mas existem outros protocolos, como o token ring, FDDI (Fiber Distributed Data Interface), PPP (Point\-to\-Point Protocol), entre outros~\cite{tanenbaum2003redes}.
+Os protocolos mais utilizados são Ethernet e Wi-fi, mas existem outros protocolos, como o token ring, FDDI (Fiber Distributed Data Interface), PPP (Point-to-Point Protocol), entre outros~\cite{tanenbaum2003redes}.
 
-O protocolo de endereçamento desta camada é o próprio Ethernet, que define o formato do frame com os campos de endereço MAC de origem e destino~\cite{CNN2026Lamix}. Os endereços MAC são físicos e permanentes, inerentes a cada dispositivo (computador, celular, etc.)~\cite{CNN2026Lamix}, e ficam associados às portas dos switches por meio da tabela MAC, conforme a Figura \ref{fig:q1_mac_table}
+O protocolo de endereçamento desta camada é o próprio Ethernet, que define o formato do frame com os campos de endereço MAC de origem e destino~\cite{CNN2026Lamix}. Os endereços MAC são físicos e definidos em fábrica, inerentes a cada dispositivo (computador, celular, etc.)~\cite{cloudifiMac} (embora alteráveis por software~\cite{gologinMacChange}), e ficam associados às portas dos switches por meio da tabela MAC, conforme a Figura \ref{fig:q1_mac_table}
 
 \begin{figure}[H]
 \centering
@@ -20,6 +20,24 @@ O protocolo de endereçamento desta camada é o próprio Ethernet, que define o 
 Esta tabela MAC é construída pelo próprio switch, por meio do processo de aprendizado de endereços: a cada frame recebido em uma porta, o switch registra o endereço MAC de origem e o associa a essa porta, montando a tabela de forma dinâmica conforme o tráfego passa pelo equipamento~\cite{CNN2026Lamix}.
 
 \subsection{Camada 3: Camada de Rede}
-Na camada de Rede, o protocolo responsável pelo endereçamento é o IP (Internet Protocol, nas versões IPv4 ou IPv6), que atribui a cada dispositivo um endereço lógico e envia os dados em datagramas, sem garantia de entrega: os datagramas podem chegar desordenados, duplicados ou mesmo não chegar~\cite{wikipedia2026ip}. O IP também permite o agrupamento dos dispositivos em sub-redes por meio do mascaramento, conferindo mais organização e segurança ao isolar máquinas em segmentos distintos~\cite{wikipedia2026subnet}.
+Na camada de Rede, o protocolo responsável pelo endereçamento é o IP (Internet Protocol, nas versões IPv4 de 32 bits ou IPv6 de 128 bits, devido ao esgotamento do espaço de endereçamento IPv4), que atribui a cada dispositivo um endereço lógico (Definidos por meio de atribuição estática ou DHCP para IPv4 ou SLAAC/DHCPv6 para IPv6) e envia os dados em datagramas, sem garantia de entrega: os datagramas podem chegar desordenados, duplicados ou mesmo não chegar~\cite{wikipedia2026ip}. O IP também permite o agrupamento dos dispositivos em sub-redes por meio do mascaramento, conferindo mais organização e segurança ao isolar máquinas em segmentos distintos~\cite{wikipedia2026subnet}.
 
-Além do IP, essa camada conta com protocolos de suporte à comunicação, como o ICMP, empregado no diagnóstico de falhas entre dispositivos (como o comando \texttt{PING}, baseado em mensagens \texttt{Echo Request} e \texttt{Echo Reply}), e com protocolos de roteamento, como o RIP e o OSPF, responsáveis por definir o caminho percorrido pelos dados entre redes distintas~\cite{RIPandOSPF}. O RIP utiliza o número de saltos como métrica, sem considerar o atraso de cada trecho, enquanto o OSPF baseia-se no algoritmo de Dijkstra para calcular o caminho mais curto~\cite{RIPandOSPF}. É também nessa camada que operam os switches de camada 3, responsáveis por interligar sub-redes distintas.
+Além do IP, essa camada conta com protocolos de suporte à comunicação, como o ICMP~\cite{icmp, wikipedia2026icmp}, empregado no diagnóstico de falhas entre dispositivos (como o comando \texttt{PING}, baseado em mensagens \texttt{Echo Request} e \texttt{Echo Reply}), e com protocolos de roteamento, como o RIP e o OSPF, responsáveis por definir o caminho percorrido pelos dados entre redes distintas~\cite{RIPandOSPF}. O RIP utiliza o número de saltos como métrica, sem considerar o atraso de cada trecho, enquanto o OSPF baseia-se no algoritmo de Dijkstra para calcular o caminho mais curto~\cite{RIPandOSPF}. É também nessa camada que operam os switches de camada 3, responsáveis por interligar sub-redes distintas.
+
+Os roteadores são os equipamentos característicos desta camada e têm por função interligar redes distintas, encaminhando cada datagrama conforme o endereço IP de destino~\cite{tanenbaum2003redes}. Para isso, mantêm uma tabela de roteamento, preenchida de forma estática, por configuração manual, ou dinâmica, por protocolos como o RIP e o OSPF~\cite{RIPandOSPF}, na qual constam as redes conhecidas e o próximo salto necessário para alcançá-las. A cada salto, o roteador desencapsula o quadro recebido, consulta a tabela, decrementa o campo TTL do datagrama e o reencapsula em um novo quadro, com endereços MAC de origem e destino adequados ao enlace seguinte~\cite{tanenbaum2003redes}.
+
+\subsection{Diferenças e comunicação das camadas}
+Cabe, portanto, distinguir comutação de roteamento. A comutação ocorre na camada 2 e se restringe a um mesmo domínio de broadcast: o switch consulta a tabela MAC, entrega o quadro à porta correspondente e não altera o seu conteúdo, sem qualquer noção de topologia além dos endereços físicos que aprendeu nas próprias portas. O roteamento, por sua vez, ocorre na camada 3 e atua entre redes: a decisão de encaminhamento se baseia em endereços lógicos e em métricas de caminho, e o roteador delimita domínios de broadcast, pois não propaga o tráfego de difusão de um segmento para outro. Em síntese, a comutação define para qual porta o quadro deve seguir dentro da rede local, enquanto o roteamento define por qual rede o datagrama deve trafegar até o destino final.
+
+Notar-se-á a diferença entre os dois esquemas, então, como tendo origem nas características delimitadas acima. O endereçamento da camada 2 é mais eficiente dentro da rede local, pois a comutação se resume a uma consulta direta da tabela MAC, normalmente resolvida em hardware, sem reescrita de cabeçalhos nem cálculo de rotas~\cite{switches}. Todavia, ela não escala, dado que a tabela cresce proporcionalmente ao número de dispositivos (esgotando o espaço de endereçamento) e o tráfego de broadcast se propaga por todo o segmento~\cite{switches}. O endereçamento da camada 3 é mais flexível e escalável, já que independe da tecnologia de enlace utilizada, seja Ethernet, Wi-Fi ou outra, e permite que os roteadores tratem milhares de destinos por um único prefixo agregado~\cite{switches}.
+
+Os dois esquemas são complementares, e em uma transmissão entre redes distintas, os endereços IP de origem e destino permanecem inalterados de ponta a ponta (salvo a tradução de endereços por NAT), enquanto os endereços MAC são reescritos a cada salto, pois valem apenas para o enlace imediato. A ligação entre os dois níveis é feita pelo ARP (ou pelo NDP, no caso de IPv6), que descobre o endereço MAC associado a um endereço IP dentro do mesmo segmento~\cite{arp}, conforme a Figura \ref{fig:switches_comm}.
+
+
+\begin{figure}[H]
+\centering
+\caption{Comunicação entre Switches de Camadas 2 e 3}
+\label{fig:switches_comm}
+\includegraphics[width=0.8\textwidth]{imgs/comm_switch2-3.png}
+\legend{Fonte: \citeonline{switches}}
+\end{figure}
