@@ -20,7 +20,7 @@ def parse_input(maybe_number: str) -> int:
 
 def fib_linear(target: int) -> int:
     """
-    Retorna o número N da sequência de Fibbonacci, dada a entrada N
+    Retorna o número N da sequência de Fibonacci, dada a entrada N
     Args:
         target: Qual a N posição da sequência
     
