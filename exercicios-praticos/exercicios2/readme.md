@@ -10,7 +10,11 @@ Linear:
 |---|---|---|
 | Tempo | `O(N^2 / log N)` | `O(N log log N)` |
 | Espaço adicional | `O(1)` | `O(N)` bytes |
-| Tempo médio para N = 1.000.000 (10 execuções) | TODO | TODO |
+| Tempo médio para N = 1.000.000 (10 execuções) | ~20 minutos`*` | 0.0530 s`**` |
+
+`*` O tempo de execução é se aproxima do quadrático dado um N grande.
+
+`**` aproximadamente 24.000x mais rápido
 
 Recursivo:
 TODO
