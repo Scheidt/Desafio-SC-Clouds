@@ -1,0 +1,59 @@
+\section{Qual a diferença entre adotar uma solução proprietária como o sistema operacional Windows quando comparado a adoção de uma solução Open source como o sistema operacional Ubuntu? Quais seriam os pontos negativos e positivos de cada abordagem?}
+Uma das principais diferenças entre as duas abordagens é o custo. Sistemas proprietários como o Windows exigem aquisição de licença via pagamento, enquanto sistemas Open Source como o Ubuntu têm licença gratuita. Todavia essa diferença não se resume simplesmente ao preço de aquisição. Uma vez que em geral as pessoas estão mais acostumadas com soluções proprietárias, a adoção de soluções gratuitas também podem gerar custos indiretos, como treinamento de equipe e eventual contratação de suporte especializado, de modo que o custo total de adoção nem sempre acompanha o custo da licença, especialmente para empresas grandes não especializadas em tecnologia (área a qual concentra maior quantidade de profissionais familiarizados com soluções Open-Source).
+
+Adicionalmente, soluções proprietárias, como o Windows não oferecem transparência quanto aos seus mecanismos internos, devido a sua natureza fechada, o que impede a auditoria pública do código e mantém pontos de falha desconhecidos sob segurança por obscuridade, prática já considerada ultrapassada. Já códigos Open Source como o Ubuntu, tem o código-fonte amplamente auditável pela comunidade, permitindo maior conhecimento sobre os processos em execução e de forma geral reduzindo a presença de bloatware. Essa abertura de código também garante flexibilidade, uma vez que o usuário ou a empresa que adota Open Source pode modificar o sistema livremente para adequá-lo às próprias necessidades, algo que soluções proprietárias como o Windows não permitem.
+
+Notar-se-á que ao contrário do que se é comumente pensado, a natureza de Open Source não significa a completa ausência de Bloatware ou telemetria. Destaca-se, que há, por exemplo, a coleta de telemetria no Ubuntu, nominalmente os pacotes "Popularity Contest"~\cite{popularityContest} (desabilitado por padrão) e o "Ubuntu Report"~\cite{ubuntuReport} (que na época era opt-in, vindo selecionado na instalação por padrão, hoje foi substituido pelo "Ubuntu Insights"~\cite{ubuntuInsights}, que por sua vez é opt-in). Todavia, a coleta de telemetria em soluções Open Source é geralmente mais transparente, com a possibilidade de auditoria do código-fonte e geralmente opt-in ou ao menos com opção de desativação, enquanto soluções proprietárias como o Windows não permitem tal auditoria e podem estar ocultas ao usuário.
+
+Outro ponto relevante é a dependência de fornecedor. A adoção do Windows tende a atrelar a empresa a todo um ecossistema Microsoft (Active Directory, Office, .NET, entre outros), criando um ciclo vicioso no qual as únicas soluções disponíveis são as do fornecedor e/ou parceiros. Soluções Open Source, por seu direito de fork, reduzem essa dependência, embora a existência de múltiplas distribuições possa gerar fragmentação e exigir mais cuidado na escolha da distro adequada.
+
+Outra diferença está em quem responde pelo funcionamento do sistema. Ao licenciar o Windows, a empresa contrata um fornecedor identificável, de quem pode exigir prazo de resposta e correção, em contrapartida, as licenças Open Source fornecem o software no estado em que se encontra, e excluem garantia. Deixando assim o risco com quem adota a ferramenta, salvo em casos de contratação de suporte comercial como o Ubuntu Pro. Isso significa que empresas podem contratar um SLA diretamente com a Microsoft, o que não seria possível (ao menos não no mesmo nível) em soluções Open Source.
+
+A vantagem de compatibilidade destacada para o Windows é inerente à sua versão de desktop e se inverte no ambiente de servidores, onde o Linux predomina~\cite{linuxPreferedServer}. Desde 2017, a totalidade dos quinhentos supercomputadores mais rápidos do mundo executa Linux~\cite{top500Computers}, e a própria Microsoft em 2019 informou que maior parte das máquinas virtuais hospedadas no Azure já utilizava o sistema~\cite{azureUsesLinux}. Concorrem para esse quadro o licenciamento por núcleo, que penaliza o crescimento horizontal do parque, o menor consumo de recursos de uma instalação sem interface gráfica, a administração remota por linha de comando e o fato de o software de servidor ser majoritariamente desenvolvido tendo o Linux como alvo primário.
+
+
+\subsection{Pontos Positivos e Negativos:}
+\subsubsection{Windows:}
+Positivos:
+\begin{itemize}
+	\item Por ser o SO mais utilizado, é compatível com quase todos os aplicativos desktop utilizados no mundo, desde ferramentas profissionais até jogos;
+	\item Suporte profissional direto do fabricante, incluindo suporte 24 horas em planos corporativos;
+	\item Facilidade de uso: o design e layout do Windows é aquele ao qual a maioria dos profissionais está acostumada, funcionando como padrão de usabilidade de mercado (embora nem sempre da forma mais eficiente);
+	\item Melhor suporte a drivers e hardware, pois fabricantes costumam priorizar compatibilidade com Windows.
+\end{itemize}
+
+Negativos:
+\begin{itemize}
+	\item Custo da licença;
+	\item Segurança por obscuridade;
+	\item Bloatware;
+	\item Obsolescência de hardware imposta por novas versões;
+	\item Falta de transparência;
+	\item Vulnerabilidades mais conhecidas e exploradas, por ser o SO mais utilizado;
+	\item Atualizações forçadas e coleta de telemetria, com pouco controle do usuário sobre esses processos;
+	\item Ciclo vicioso de compatibilidade em torno do ecossistema Microsoft.
+\end{itemize}
+
+\subsubsection{Ubuntu:}
+Positivos:
+\begin{itemize}
+	\item Não há custo de licença;
+	\item Transparência e código auditável pela comunidade;
+	\item Comunidade rica e colaborativa, que troca constantemente informações, dados e guias;
+	\item Maior segurança em partes, pois a ausência de segurança por obscuridade favorece a descoberta e correção de falhas pela própria comunidade, muito embora nem sempre isso ocorra (vide mais detalhes na Q3);
+	\item Flexibilidade para modificar o código-fonte e adequar o sistema à realidade de cada usuário ou empresa;
+	\item Redução da dependência de uma única empresa fornecedora;
+	\item Suporte LTS longo e menor exigência de hardware;
+	\item Disponibilidade de suporte profissional pago para empresas que precisam de SLA formal, como o Ubuntu Pro da Canonical, o que reduz a distância em relação ao suporte oferecido por soluções proprietárias, embora em uma escala menor se comparado à Microsoft.
+\end{itemize}
+
+Negativos:
+\begin{itemize}
+	\item Menor compatibilidade com aplicativos de desktop, por ter parcela do mercado consumidor muito menor que do Windows;
+	\item Suporte a hardware e drivers mais limitado, sobretudo para periféricos e componentes recentes;
+	\item Falhas de segurança conhecidas publicamente enquanto ainda estão sendo corrigidas, já que não há ocultamento das vulnerabilidades e outras formas de patch gap~\cite{patchGap};
+	\item Fragmentação entre distribuições, o que pode dificultar a escolha e a padronização dentro de uma empresa;
+	\item Necessidade de treinamento da equipe, caso não haja familiaridade com o sistema.
+\end{itemize}
+
+Portanto, observa-se que a escolha entre as duas abordagens depende do contexto de uso. Em ambientes de servidor e infraestrutura de nuvem, soluções Open Source predominam, todavia em ambientes de desktop corporativo, o Windows é preferido pela compatibilidade com softwares de escritório e pela familiaridade dos usuários. Portanto, a decisão entre uma abordagem proprietária e uma Open Source deve considerar não apenas custo de licença, mas também suporte, segurança, flexibilidade e o cenário de infraestrutura e treinamento em que a solução será empregada.
