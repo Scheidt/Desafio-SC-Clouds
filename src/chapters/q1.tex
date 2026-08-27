@@ -1,13 +1,15 @@
 \section{Diferenciar as Camadas 2 e 3 do modelo OSI e indicar os protocolos utilizados para endereçamento nestas camadas.}
 \label{q1}
 
-\subsection{Camada 2: Camada de Enlace de Dados}
+O modelo OSI organiza a comunicação em rede em sete camadas, cada uma responsável por um conjunto delimitado de funções e apoiada nos serviços da camada imediatamente inferior~\cite{tanenbaum2003redes}. As camadas 2 e 3 são adjacentes e ambas tratam de endereçamento e entrega de dados, porém em escopos distintos: a camada de enlace de dados move quadros entre dispositivos de um mesmo enlace, ao passo que a camada de rede move pacotes entre redes diferentes até o destino final. Essa diferença de escopo determina o tipo de endereço empregado, os equipamentos característicos de cada nível e o alcance das decisões de encaminhamento.
+
+\subsection{Camada 2: Enlace de Dados}
 A Camada de Enlace de Dados observa defeitos e descarta se necessário o quadro de dado~\cite{tanenbaum2003redes}. É nessa camada que há o funcionamento dos switches de camada 2~\cite{tanenbaum2003redes}.
 Além disso, nessa camada é feito o controle de fluxo, para garantir que o emissor não envie dados rápido demais para o receptor~\cite{tanenbaum2003redes}.
 
 Os protocolos mais utilizados são Ethernet e Wi-fi, mas existem outros protocolos, como o token ring, FDDI (Fiber Distributed Data Interface), PPP (Point-to-Point Protocol), entre outros~\cite{tanenbaum2003redes}.
 
-O protocolo de endereçamento desta camada é o MAC-48/EUI-48~\cite{ieeeMac} (sendo 24 bits do OUI do fabricante + 24 do dispositivo), que define o formato do frame com os campos de endereço MAC de origem e destino~\cite{CNN2026Lamix}. Os endereços MAC são físicos e definidos em fábrica, inerentes a cada dispositivo (computador, celular, etc.)~\cite{cloudifiMac} (embora alteráveis por software~\cite{gologinMacChange}), e ficam associados às portas dos switches por meio da tabela MAC, conforme a Figura \ref{fig:q1_mac_table}.
+O protocolo de endereçamento desta camada é o MAC-48/EUI-48~\cite{ieeeMac} (sendo 24 bits do OUI do fabricante + 24 do dispositivo), que define o formato do frame com os campos de endereço MAC de origem e destino~\cite{CNN2026Lamix}. Os endereços MAC são físicos e definidos em fábrica, inerentes a cada dispositivo~\cite{cloudifiMac} (embora alteráveis por software~\cite{gologinMacChange}), e ficam associados às portas dos switches por meio da tabela MAC, conforme a Figura \ref{fig:q1_mac_table}.
 
 \begin{figure}[H]
 \centering
