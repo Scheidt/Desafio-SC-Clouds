@@ -21,6 +21,6 @@ def fib_recursive(pos, secondlast = 0, last = 1, cursor=1):
     else:
         return fib(pos, last, secondlast + last, cursor+1)
 
-if __name__ == "main":
+if __name__ == "__main__":
     while True:
-        print(fib(input("Insira um número: ")))
+        print(fib_recursive(input("Insira um número: ")))

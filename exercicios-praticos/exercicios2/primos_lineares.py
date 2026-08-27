@@ -25,6 +25,6 @@ def primes(target):
             primes.append(new)
     return primes
 
-if __name__ == "main":
+if __name__ == "__main__":
     while True:
-        print(p(input("Insira um número: ")))
+        print(primes(input("Insira um número: ")))

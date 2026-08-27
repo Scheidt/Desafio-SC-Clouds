@@ -25,6 +25,6 @@ def fib_linear(target):
         target -= 1
     return new
 
-if __name__ == "main":
+if __name__ == "__main__":
     while True:
-        print(fib(input("Insira um número: ")))
+        print(fib_linear(input("Insira um número: ")))
