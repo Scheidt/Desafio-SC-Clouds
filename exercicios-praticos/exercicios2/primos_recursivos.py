@@ -34,6 +34,6 @@ def p(target, primes=None):
         primes.append(target)
     return p(target - 1, primes)
 
-
-while True:
-    print(p(input("Insira um número: ")))
+if __name__ == "main":
+    while True:
+        print(p(input("Insira um número: ")))

@@ -1,8 +1,7 @@
 #Criar uma função em sua linguagem preferida. A função deve receber um numero N >= 0 (deve validar o input para a função), e retornar
 #    o valor correspondente desse número na sequência Fibonacci. EX. fib(0) =0; fib(1) = 1; fib(2) = 1; fib(3) = 2; fib(5) = 5; fib(6) = 8.
 
-def fib(pos, secondlast = 0, last = 1, cursor=1):
-
+def fib_recursive(pos, secondlast = 0, last = 1, cursor=1):
     while True:
         try:
             pos = int(pos)
@@ -22,5 +21,6 @@ def fib(pos, secondlast = 0, last = 1, cursor=1):
     else:
         return fib(pos, last, secondlast + last, cursor+1)
 
-while True:
-    print(fib(input("Insira um número: ")))
+if __name__ == "main":
+    while True:
+        print(fib(input("Insira um número: ")))
