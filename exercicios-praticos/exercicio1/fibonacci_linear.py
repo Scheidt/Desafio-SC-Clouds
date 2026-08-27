@@ -11,7 +11,7 @@ def parse_input(maybe_number: str) -> int:
         entrada convertida para int
 
     Raises:
-        ValueError: Se o número for igual zero ou negativo
+        ValueError: Se não for um inteiro ou se for negativo
     """
     number = int(maybe_number)
     if number < 0:
@@ -38,7 +38,7 @@ def fib_linear(target: int) -> int:
         raise ValueError("O número deve ser maior ou igual a zero")
     
     if target == 0:
-            return 0
+        return 0
     elif target == 1:
         return 1
     last = 0
