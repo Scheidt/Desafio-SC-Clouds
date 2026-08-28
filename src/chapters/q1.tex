@@ -1,6 +1,8 @@
 \section{Diferenciar as Camadas 2 e 3 do modelo OSI e indicar os protocolos utilizados para endereçamento nestas camadas.}
 \label{q1}
 
+TODO: falar sobre enquadramento, detecção de erro com FCS/CRC, controle de acessoao meio e as subcamadas (LLC/MAC), flooding STP, VLAN LACP e BGP
+
 O modelo OSI organiza a comunicação em rede em sete camadas, cada uma responsável por um conjunto de funções específicos e apoiada na camada inferior~\cite{tanenbaum2003redes}. As camadas 2 e 3 são adjacentes e ambas tratam de endereçamento e entrega de dados, porém com características e escopos distintos: a camada de enlace de dados move quadros entre dispositivos de um mesmo enlace, ao passo que a camada de rede move pacotes entre redes diferentes até o destino final.
 
 \subsection{Camada 2: Enlace de Dados}
@@ -10,6 +12,7 @@ Além disso, nessa camada é feito o controle de fluxo, para garantir que o emis
 Os protocolos mais utilizados são Ethernet e Wi-fi, mas existem outros protocolos, como o token ring, FDDI (Fiber Distributed Data Interface), PPP (Point-to-Point Protocol), entre outros~\cite{tanenbaum2003redes}.
 
 O protocolo de endereçamento desta camada é o MAC~\cite{ieeeMac} (composto de 24 bits do OUI do fabricante + 24 do dispositivo), que define o formato do frame com os campos de endereço MAC de origem e destino~\cite{CNN2026Lamix}. Os endereços MAC são físicos e definidos em fábrica, inerentes a cada dispositivo~\cite{cloudifiMac} (embora alteráveis por software~\cite{gologinMacChange}, que é muito usado em dispositivos mobile para motivos de privacidade em redes wi-fi), e ficam associados às portas dos switches por meio da tabela MAC, conforme a Figura \ref{fig:q1_mac_table} (esta camada, assim como a camada 3, também possui um endereço próprio de broadcast).
+
 
 \begin{figure}[H]
 \centering
@@ -43,3 +46,5 @@ Os dois esquemas são complementares, e em uma transmissão entre redes distinta
 \includegraphics[width=0.8\textwidth]{imgs/comm_switch2-3.png}
 \legend{Fonte: \citeonline{switches}}
 \end{figure}
+
+TODO: Talvez colocar uma tabela de comparação?
