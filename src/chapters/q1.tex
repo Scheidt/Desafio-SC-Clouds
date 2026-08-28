@@ -1,15 +1,27 @@
 \section{Diferenciar as Camadas 2 e 3 do modelo OSI e indicar os protocolos utilizados para endereçamento nestas camadas.}
 \label{q1}
 
-TODO: falar sobre enquadramento, detecção de erro com FCS/CRC, controle de acessoao meio e as subcamadas (LLC/MAC), flooding STP, VLAN LACP e BGP
-
-O modelo OSI organiza a comunicação em rede em sete camadas, cada uma responsável por um conjunto de funções específicos e apoiada na camada inferior~\cite{tanenbaum2003redes}. As camadas 2 e 3 são adjacentes e ambas tratam de endereçamento e entrega de dados, porém com características e escopos distintos: a camada de enlace de dados move quadros entre dispositivos de um mesmo enlace, ao passo que a camada de rede move pacotes entre redes diferentes até o destino final.
+O modelo OSI organiza a comunicação em rede em sete camadas, cada uma responsável por um conjunto de funções específicos e apoiada na camada inferior~\cite{tanenbaum2021redes}. As camadas 2 e 3 são adjacentes e ambas tratam de endereçamento e entrega de dados, porém com características e escopos distintos: a camada de enlace de dados move quadros entre dispositivos de um mesmo enlace, ao passo que a camada de rede move pacotes entre redes diferentes até o destino final.
 
 \subsection{Camada 2: Enlace de Dados}
-A Camada de Enlace de Dados observa defeitos e descarta se necessário o quadro de dado~\cite{tanenbaum2003redes}. É nessa camada que há o funcionamento dos switches de camada 2~\cite{tanenbaum2003redes}.
-Além disso, nessa camada é feito o controle de fluxo, para garantir que o emissor não envie dados rápido demais para o receptor~\cite{tanenbaum2003redes}.
+A Camada de Enlace de Dados observa defeitos e descarta se necessário o quadro de dado~\cite{tanenbaum2021redes}. É nessa camada que há o funcionamento dos switches de camada 2~\cite{tanenbaum2021redes}.
+Além disso, nessa camada é feito o controle de fluxo, para garantir que o emissor não envie dados rápido demais para o receptor~\cite{tanenbaum2021redes}.
 
-Os protocolos mais utilizados são Ethernet e Wi-fi, mas existem outros protocolos, como o token ring, FDDI (Fiber Distributed Data Interface), PPP (Point-to-Point Protocol), entre outros~\cite{tanenbaum2003redes}.
+Os protocolos mais utilizados são Ethernet e Wi-fi, mas existem outros protocolos, como o token ring, FDDI (Fiber Distributed Data Interface), PPP (Point-to-Point Protocol), entre outros~\cite{tanenbaum2021redes}.
+
+O que chega na placa de rede é um fluxo de bits sem separação nenhuma, e o primeiro trabalho da camada é o enquadramento, que trada de dizer onde cada quadro começa e onde termina~\cite{tanenbaum2021redes}. Na Ethernet o início vem do preâmbulo, sete bytes alternando 1 e 0 que servem para sincronizar o relógio do receptor, seguidos do SFD, que avisa que o quadro começa no próximo bit (Vide Figura \ref{fig:q1_preamble})~\cite{ethernetProtocol}. Erros são detectados por meio de FCS, todavia, apesar da Ethernet detectar erros, esta não corrige e não retransmite o dado, ficando sobre responsabilidade do TCP duas camadas acima perceber e corrigir a perda~\cite{tanenbaum2021redes,ethernetProtocol}.
+
+\begin{figure}[H]
+\centering
+\caption{Preâmbulo do protocolo Ethernet}
+\label{fig:q1_preamble}
+\includegraphics[width=0.8\textwidth]{imgs/preamble.png}
+\legend{Fonte: \citeonline{ethernetProtocol}, convertida para png pelo Autor}
+\end{figure}
+
+O IEEE divide a camada 2 em duas subcamadas~\cite{ieee8022}. A MAC trata do endereço físico e de quem pode transmitir a cada momento, e muda conforme a tecnologia (802.3 para Ethernet, 802.11 para Wi-Fi)~\cite{ieeeMac}. A LLC (802.2) fica, em teoria, acima dela, oferecendo controle de erro e de fluxo por uma interface única, independente do meio~\cite{ieee8022}. Todavia a LLC caiu em desuso (tal qual classes de IP cairam em desuso devido ao mascaramento), a ponto de o próprio IEEE retirar a norma e dissolver o grupo de trabalho em 2010~\cite{ieee8022disband}, agora na Ethernet os dois bytes seguintes ao endereço de origem viraram EtherType e apontam direto para o protocolo de camada 3, 0x0800 para IPv4 e 0x0806 para ARP~\cite{rfc894,rfc1042}. O protocolo Wi-Fi ainda carrega LLC/SNAP no cabeçalho~\cite{rfc1042}.
+
+O controle de acesso ao meio existe porque o meio é compartilhado. Na Ethernet de barramento coaxial e nos hubs, o método era o CSMA/CD que consistia em escutar o cabo, transmitir se estiver livre e, ao detectar colisão, parar e esperar um intervalo aleatório~\cite{tanenbaum2021redes}. Atualmente utilizam-se redes comutadas full-duplex nas quais não há colisão, e que cada porta é um domínio de colisão próprio. Todavia o problema original continua ocorrendo no Wi-Fi, onde o rádio não escuta o meio durante a própria transmissão, portanto utiliza-se o CSMA/CA, que espera antes de transmitir e confirma cada quadro recebido.
 
 O protocolo de endereçamento desta camada é o MAC~\cite{ieeeMac} (composto de 24 bits do OUI do fabricante + 24 do dispositivo), que define o formato do frame com os campos de endereço MAC de origem e destino~\cite{CNN2026Lamix}. Os endereços MAC são físicos e definidos em fábrica, inerentes a cada dispositivo~\cite{cloudifiMac} (embora alteráveis por software~\cite{gologinMacChange}, que é muito usado em dispositivos mobile para motivos de privacidade em redes wi-fi), e ficam associados às portas dos switches por meio da tabela MAC, conforme a Figura \ref{fig:q1_mac_table} (esta camada, assim como a camada 3, também possui um endereço próprio de broadcast).
 
@@ -24,12 +36,16 @@ O protocolo de endereçamento desta camada é o MAC~\cite{ieeeMac} (composto de 
 
 Esta tabela MAC é construída pelo próprio switch, por meio do processo de aprendizado de endereços: a cada frame recebido em uma porta, o switch registra o endereço MAC de origem e o associa a essa porta, montando a tabela de forma dinâmica conforme o tráfego passa pelo equipamento~\cite{CNN2026Lamix}.
 
+Isso também significa que antes do switch aprender, ele não têm o que consultar. Um quadro com destino desconhecido, de broadcast ou multicast é então enviado por todas as portas menos a de entrada, um comportamento chamado de flooding~\cite{CNN2026Lamix}. Contudo, isso se torna um problema quando há um caminho redundante entre dois switches, neste caso o quadro inundado volta pela outra porta, é inundado de novo e, como o cabeçalho Ethernet não tem TTL, nada interrompe o ciclo, entrando em loop~\cite{switchingLoop}. Em poucos segundos o laço satura os enlaces e ainda corrompe a tabela MAC, que passa a ver o mesmo endereço de origem entrando por portas diferentes~\cite{switchingLoop}. O mecanismo criado para corrigir este problema chama-se STP (802.1D)~\cite{ieee8021d}, no qual é eleita uma raiz por meio do menor ID e são bloqueadas as portas que criaram um segundo caminho, mantendo-as de reserva para caso o link ativo cair~\cite{stp}.
+
+Outros dois recursos estão presentes em switches de layer 2 gerenciáveis. A VLAN (802.1Q) divide o switch em domínios de broadcast separados~\cite{ieee8021q}: cada porta pertence a uma VLAN e o flooding não sai dela. Entre switches, um cabo tronco leva várias VLANs ao mesmo tempo, com cada quadro marcado com a VLAN a que pertence~\cite{ieee8021q}. Por exemplo, isolar câmeras, rede de visitantes e setor administrativo pode ser feito por meio de uma VLAN, ao invés de comprar um switch físico para cada um deles. O LACP (802.3ad, atual 802.1AX)~\cite{ieee8021ax,linkAggregation} faz o movimento contrário ao do STP: agrupa vários enlaces físicos em um enlace lógico só, que soma banda e continua de pé se um cabo cair, sem que o STP precise bloquear os redundantes. A banda soma entre fluxos diferentes, não dentro de um, então a cópia de um arquivo continuaria limitada à velocidade de um cabo~\cite{linkAggregation}.
+
 \subsection{Camada 3: Camada de Rede}
 Na camada de Rede, o protocolo responsável pelo endereçamento é o IP (Internet Protocol, que por sua vez possui duas versões, sendo o IPv4 de 32 bits ou o IPv6 de 128 bits, devido ao esgotamento do espaço de endereçamento IPv4), esse protocolo atribui para cada dispositivo um endereço lógico (Definidos por meio de atribuição estática e/ou DHCP para IPv4 ou SLAAC/DHCPv6 para endereço IPv6) e envia os dados em datagramas, sem garantir entrega: tais datagramas podem chegar desordenados, duplicados ou  até mesmo não chegar~\cite{wikipedia2026ip}. O IP também permite o agrupamento dos dispositivos em sub-redes por meio do mascaramento, conferindo mais organização e segurança ao isolar máquinas em segmentos distintos~\cite{wikipedia2026subnet}.
 
 Além do IP, essa camada conta com protocolos de suporte à comunicação, como o ICMP~\cite{icmp, wikipedia2026icmp}, empregado no diagnóstico de falhas entre dispositivos (como o comando \texttt{PING}, baseado em mensagens \texttt{Echo Request} e \texttt{Echo Reply}), e com protocolos de roteamento, como o RIP e o OSPF, responsáveis por definir o caminho percorrido pelos dados entre redes distintas~\cite{RIPandOSPF}. O RIP utiliza o número de saltos como métrica, sem considerar o atraso de cada trecho, tendo um limite máximo de 15 saltos e utiliza o algoritmo de Bellman-Ford, enquanto o OSPF baseia-se no algoritmo de Dijkstra para calcular o caminho mais curto, utilizando como métrica de custo a largura de banda~\cite{RIPandOSPF}. É também nessa camada que operam os switches de camada 3, responsáveis por interligar sub-redes distintas.
 
-Os roteadores são os equipamentos principais desta camada cuja função são interligar redes distintas, encaminhando cada datagrama conforme o endereço IP de destino~\cite{tanenbaum2003redes}. Para tal, eles mantêm uma tabela de roteamento, preenchida de forma estática, por configuração manual, ou dinâmica, por protocolos como o RIP e o OSPF~\cite{RIPandOSPF}, na qual constam as redes conhecidas e o próximo salto necessário para alcança-las. A cada salto, o roteador desencapsula o quadro recebido, consulta a tabela, decrementa o campo TTL do datagrama e o reencapsula em um novo quadro, adequando os endereços MAC de origem e destino  ao enlace seguinte~\cite{tanenbaum2003redes}.
+Os roteadores são os equipamentos principais desta camada cuja função são interligar redes distintas, encaminhando cada datagrama conforme o endereço IP de destino~\cite{tanenbaum2021redes}. Para tal, eles mantêm uma tabela de roteamento, preenchida de forma estática, por configuração manual, ou dinâmica, por protocolos como o RIP e o OSPF~\cite{RIPandOSPF}, na qual constam as redes conhecidas e o próximo salto necessário para alcança-las. A cada salto, o roteador desencapsula o quadro recebido, consulta a tabela, decrementa o campo TTL do datagrama e o reencapsula em um novo quadro, adequando os endereços MAC de origem e destino  ao enlace seguinte~\cite{tanenbaum2021redes}.
 
 \subsection{Diferenças e comunicação das camadas}
 Deve-se então distinguir as comunicações de ambas as camadas, nominalmente a comutação e o roteamento. A comutação ocorre na camada 2 e se restringe a um mesmo domínio de broadcast: o switch consulta a tabela MAC, entrega o quadro à porta correspondente e não altera o seu conteúdo (salvo nos casos de VLAN, em que um switch insere e remove tags 802.1Q), sem avaliar a topologia além dos endereços físicos que aprendeu nas próprias portas. Em contrapartida, o roteamento ocorre na camada 3 e atua entre redes, tomando a decisão de encaminhamento baseada nos endereços lógicos e em métricas de caminho, e o roteador delimita domínios de broadcast, pois não propaga o tráfego de difusão de um segmento para outro.
@@ -47,4 +63,26 @@ Os dois esquemas são complementares, e em uma transmissão entre redes distinta
 \legend{Fonte: \citeonline{switches}}
 \end{figure}
 
-TODO: Talvez colocar uma tabela de comparação?
+\begin{table}[H]
+\centering
+\caption{Comparação entre as camadas 2 e 3}
+\label{tab:q1_camadas}
+\small
+\renewcommand{\arraystretch}{1.2}
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{2.9cm} X X@{}}
+\toprule
+ & \textbf{Camada 2 (enlace)} & \textbf{Camada 3 (rede)} \\
+\midrule
+Unidade de dados & Quadro & Datagrama \\
+Endereço & MAC, 48 bits (24 de OUI + 24 do dispositivo), gravado no dispostivo & IPv4 de 32 bits ou IPv6 de 128 bits, atribuído por configuração estática, DHCP ou SLAAC \\
+Alcance & Um enlace, até o próximo salto & Fim a fim, entre redes distintas \\
+No caminho & Reescrito a cada salto & Permanece igual (salvo NAT) \\
+Equipamentos & Switch, bridge, ponto de acesso & Roteador, switch de camada 3 \\
+Controle de laço & Não existe campo no cabeçalho Ethernet; depende do STP & TTL, decrementado a cada salto \\
+Erros & FCS sobre o quadro inteiro, que é descartado sem retransmissão & Checksum só do cabeçalho no IPv4, retirado no IPv6 \\
+Broadcast & Propaga por todo o segmento, delimitado por VLAN & Não propaga; o roteador encerra o domínio \\
+Protocolos & Ethernet (802.3), Wi-Fi (802.11), PPP & IP, ICMP, RIP, OSPF \\
+\bottomrule
+\end{tabularx}
+\legend{Fonte: elaborada pelo Autor com base em \citeonline{tanenbaum2021redes}.}
+\end{table}
