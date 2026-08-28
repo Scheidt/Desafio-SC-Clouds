@@ -87,7 +87,7 @@ Tomando `N = 100` e o primo `p = 7`, cujo quadrado é `49`:
 2. `6` é maior que um, então possui fatores primos: `6 = 2*3`. Tomando `q = 3`, vale `3 <= 6 < 7`, isto é, `q` é menor que `p`;
 3. `3` divide `6`, logo `3` também divide `42` (`42 = 3*14`). Ou seja, `42` é múltiplo de `3`;
 4. Como `3 < 7`, o número `3` foi analisado antes de `7`, e sua passagem descartou `9, 12, 15, ..., 42, ...` a partir de `3^2 = 9`. E `42` está dentro desse trecho, pois `42 > 18 >= 9`;
-5. Portanto `42` já estava marcado como não primo antes de `7` ser analisado. O mesmo vale para todos os outros múltiplos de `7` abaixo de `49` — `14` e `28` caíram na passagem do `2`, `21` e `42` na do `3`, `35` na do `5` — e por isso a passagem do `7` começa direto em `49`, marcando apenas `49, 56, 63, 70, 77, 84, 91, 98`;
+5. Portanto `42` já estava marcado como não primo antes de `7` ser analisado. O mesmo vale para todos os outros múltiplos de `7` abaixo de `49` (`14` e `28` caíram na passagem do `2`, `21` e `42` na do `3`, `35` na do `5`) e por isso a passagem do `7` começa direto em `49`, marcando apenas `49, 56, 63, 70, 77, 84, 91, 98`;
 6. O próximo primo, `11`, é maior que `sqrt(100) = 10`, e seu quadrado `121` já ultrapassa `N = 100`. Não há nenhum múltiplo de `11` a descartar dentro do crivo, então o laço externo para em `10` e os primos entre `11` e `100` são apenas lidos do array, sem nunca iniciar uma passagem própria.
 
 --------------------------
@@ -95,4 +95,17 @@ Tomando `N = 100` e o primo `p = 7`, cujo quadrado é `49`:
 
 ## [3] Por que uma única função recursiva, e não um par "função pública + auxiliar recursiva"?
 
-TODO
+A recursão precisa carregar estado entre as chamadas (o candidato a primo da vez e o array de números), mas também precisa executar código que ocorreria somente na primeira execução (instanciar o array, verificar a entrada) para tal há duas formas de codificar:
+
+1. Um par de wrapper + helper. Na qual o wrapper público recebe só `target` como argumento, e é responsavel por validar o input, montar o array e chamar uma segunda função recursiva "privada" (não existe função privada em Python, ele não impede o chamado delas), que carrega os acumuladores. É a estrutura mais comum em código de produção, pois a função pública abre somente os parâmetros que ficam a encargo do usuário e protege os acumuladores de serem passados diretamente, além de garantir que a validação será rodada, sem ser possível pulá-la enviando os acumuladores na chamada de função.
+2. Uma função única com acumuladores opcionais. Os acumuladores ficam na própria assinatura com valor default, e um desses acumuladores identifica a primeira execução da recursão (`is_prime`, nesse caso) sendo esta primeira execução a única que valida o input e monta o array. É a mesma técnica que a versão original já usava com `found: list[int] | None = None`.
+
+Foi escolhido o segundo método. Embora o primeiro método seja mais ideal para esse caso, por permitir que o wrapper instancie o array e faça a verificação de entrada, além de proteger os acumuladores de edição externa; todavia, dado que o desafio pedia para _"Criar **uma função** [...]._" e que _"**A função** deve receber um número N > 1 (validar
+o input), e retornar todos os números primos até o número N"_. Dado que o enunciado está no singular, elegi desenvolver a solução em uma função única, por ser mais próximo do enunciado, mesmo que idealmente essa funcionalidade funcionaria melhor com um par de funções. 
+
+Novamente, um solução envolvendo as duas funções seria ideal, pois o método atual possui os seguintes problemas (explicitados aqui para demonstrar que sei destes problemas, mas que o método utilizado foi uma escolha de implementação _apesar_ destes erros):
+
+- A assinatura pública expõe dois parâmetros internos. Seria possível por exemplo chamar `primes_recursive(10, 5, bytearray(11))`, o que devolveria lixo sem validação nenhuma. Tentei deixar claro na docstring que os dois argumentos são acumuladores internos, mas isso não impede de um usuário incauto executar essa chamada.
+- A validação passa a rodar apenas na chamada de entrada, e não em toda chamada. Chamar `primes_recursive(100, 2, bytearray(...))` executa corretamente e possivelmente daria um resultado correto se o bytearray for criado corretamente, mas a entrada não é verificada (o `bytearray` não ser `None` pula a verificação), isso significa que `primes_recursive("foo", "bar", bytearray(...))` não cai na verificação de entrada da função (Python não limita a entrada à tipagem fornecida) e flui até o primeiro erro de código, gerando um levante de erro com uma mensagem incorreta.
+
+Nenhum desses pontos afeta o resultado ou a complexidade, dado que são problemas no acesso da função, não de algoritmo. Trocar para o par wrapper + helper é uma mudança simples, bastando mover o bloco `if is_prime is None` para uma função externa que chama a função recursiva e deixar o resto do corpo como está.
