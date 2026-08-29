@@ -2,7 +2,6 @@
 \label{q1}
 
 \subsection{Camada 2: Enlace de Dados}
-% TODO: Explicar ARP em algum lugar sepa
 A Camada de Enlace de Dados é responsável por garantir a transferência de dados entre nós na mesma LAN/domínio de broadcast, ela também observa defeitos e descarta se necessário o quadro de dado e é nela que há o funcionamento dos switches de camada 2~\cite{tanenbaum2021redes}.
 Além disso, nessa camada é feito o controle de fluxo, para garantir que o emissor não envie dados rápido demais para o receptor~\cite{tanenbaum2021redes}.
 
@@ -62,6 +61,21 @@ Os dois esquemas são complementares, e em uma transmissão entre redes distinta
 \includegraphics[width=0.8\textwidth]{imgs/comm_switch2-3.png}
 \legend{Fonte: \citeonline{switches}}
 \end{figure}
+
+O ARP, embora formalmente parte da camada 2, por ser parte de um quadro Ethernet, é utilizado para o funcionamento da camada 3, servindo como uma espécie de camada 2.5. Uma máquina que deseja falar com um IP específico, mas que não possui um MAC registrado correspondente envia um ARP Request em broadcast, que é respondido somente pelo IP correto por meio de um ARP Reply em unicast, retornando o próprio MAC~\cite{rfc826} (Vide Figura \ref{fig:arp_protocol}). Esta resposta é salva temporariamente, fazendo com que não seja necessário repetir esse broadcast para cada requisição.
+
+\begin{figure}[H]
+\centering
+\caption{Funcionamento do protocolo ARP}
+\label{fig:arp_protocol}
+\includegraphics[width=0.8\textwidth]{imgs/ARP-request-and-ARP-reply.png}
+\legend{Fonte: \citeonline{arpProtocol} convertido para png pelo Autor}
+\end{figure}
+
+Nota-se que este protocolo funciona somente para elementos na mesma sub-rede. Para IPs que existem fora da banda da sub-rede a máquina requisitora pergunta pelo MAC do gateway, ao invés do destino final, re-escrevendo o MAC a cada salto~\cite{rfc826}.
+
+Por fim, no ARP Reply a máquina que gerou a requisição não é capaz de verificar a validade da resposta, podendo receber uma resposta mentirosa de um agente bizantino. Um problema que não é solucionado no protocolo ARP~\cite{mitreArpPoisoning}. A mitigação usual nos switches é o Dynamic ARP Inspection, que confere cada resposta contra a tabela do DHCP snooping~\cite{ciscoDai}. Segmentar em VLANs diminui quantos hosts o atacante alcança, mas não impede o ataque, dado que o gateway está sempre no mesmo domínio de broadcast da vítima. O que protege o conteúdo é TLS, e mesmo assim quem está no caminho ainda consegue derrubar a conexão.
+
 
 \begin{table}[H]
 \centering
