@@ -1,14 +1,10 @@
 \documentclass[11pt,a4paper]{article}
 
-% -----------------------------------------------------------------------
-% RAIZ DAS FONTES, permite compilar tanto da raiz do repositório
-% (latexmk -pdf -outdir=out src/main.tex) quanto de dentro de src/
-% -----------------------------------------------------------------------
 \IfFileExists{chapters/q1.tex}{\newcommand{\srcroot}{}}{\newcommand{\srcroot}{src/}}
 
-% -----------------------------------------------------------------------
+% =-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=--=-=-=--=-===--=-=-=
 % CODIFICAÇÃO, IDIOMA E FONTES
-% -----------------------------------------------------------------------
+% =-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=--=-=-=--=-===--=-=-=
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage{lmodern}                 % corpo em serifa (Latin Modern)
@@ -19,20 +15,23 @@
 \addto\extrasbrazilian{\shorthandoff{"}}
 \usepackage{csquotes}
 
-% -----------------------------------------------------------------------
+% =-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=--=-=-=--=-===--=-=-=
 % LAYOUT DA PÁGINA
-% -----------------------------------------------------------------------
+% =-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=--=-=-=--=-===--=-=-=
 \usepackage[a4paper,left=2.5cm,right=2.5cm,top=2.8cm,bottom=2.5cm,
             headheight=22pt,footskip=1.2cm]{geometry}
 \usepackage{setspace}
-\linespread{1.08}                    % respiro leve, sem o 1,5 da ABNT
+\linespread{1.08}
 \setlength{\parskip}{0.55em}
-\setlength{\parindent}{0pt}          % parágrafos separados por espaço, não recuo
+\setlength{\parindent}{0pt}
 \usepackage{ragged2e}
 
-% -----------------------------------------------------------------------
+% Não quebrar footnotes entre páginas
+\interfootnotelinepenalty=10000
+
+% =-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=--=-=-=--=-===--=-=-=
 % TABELAS, LISTAS, FIGURAS
-% -----------------------------------------------------------------------
+% =-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=--=-=-=--=-===--=-=-=
 \usepackage{graphicx}
 \graphicspath{{src/}{./}}
 \usepackage{xcolor}
@@ -48,12 +47,12 @@
 \usepackage[font=small,labelfont={bf,sf},justification=centering]{caption}
 
 % Cores do documento
-\definecolor{cLink}{HTML}{1D4E89}    % azul discreto para links e citações
-\definecolor{cRule}{HTML}{9AA5B1}    % cinza das linhas de cabeçalho/rodapé
+\definecolor{cLink}{HTML}{1D4E89}    % Links e citações
+\definecolor{cRule}{HTML}{c0c2ce}    % Rulers horizontais
 
-% -----------------------------------------------------------------------
+% =-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=--=-=-=--=-===--=-=-=
 % TÍTULOS
-% -----------------------------------------------------------------------
+% =-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=--=-=-=--=-===--=-=-=
 \usepackage{titlesec}
 
 % Numeração das seções como Q1, Q2, Q3 (subseções: Q1.1, Q1.2, ...)
@@ -71,9 +70,29 @@
 \titlespacing*{\subsection}   {0pt}{2.0ex plus .8ex minus .2ex}{0.8ex plus .2ex}
 \titlespacing*{\subsubsection}{0pt}{1.6ex plus .6ex minus .2ex}{0.6ex plus .2ex}
 
-% -----------------------------------------------------------------------
+% =-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=--=-=-=--=-===--=-=-=
+% SUMÁRIO
+% =-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=--=-=-=--=-===--=-=-=
+\usepackage{tocloft}
+\setcounter{tocdepth}{2}             % seções e subseções; subsubseções ficam de fora
+\setlength{\cftparskip}{0pt}
+\setlength{\cftbeforesecskip}{0.7em}
+\setlength{\cftsecnumwidth}{2.2em}   % "Q1"
+\setlength{\cftsubsecindent}{2.2em}
+\setlength{\cftsubsecnumwidth}{3.0em}% "Q1.1"
+\renewcommand{\cftsecfont}{\sffamily\bfseries}
+\renewcommand{\cftsecpagefont}{\sffamily\bfseries}
+\renewcommand{\cftsubsecfont}{\sffamily\small}
+\renewcommand{\cftsubsecpagefont}{\sffamily\small}
+\renewcommand{\cftsecleader}{\normalfont\cftdotfill{\cftsecdotsep}}
+\renewcommand{\cftsecdotsep}{\cftdotsep}
+\renewcommand{\cfttoctitlefont}{\sffamily\large\bfseries}
+\setlength{\cftbeforetoctitleskip}{0pt}
+\setlength{\cftaftertoctitleskip}{0.6ex}
+
+% =-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=--=-=-=--=-===--=-=-=
 % CABEÇALHO E RODAPÉ
-% -----------------------------------------------------------------------
+% =-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=--=-=-=--=-===--=-=-=
 \usepackage{lastpage}
 \usepackage{fancyhdr}
 \pagestyle{fancy}
@@ -84,9 +103,9 @@
 \fancyhead[R]{\footnotesize\sffamily Questões Teóricas}
 \fancyfoot[C]{\footnotesize\sffamily\thepage\ de \pageref{LastPage}}
 
-% -----------------------------------------------------------------------
+% =-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=--=-=-=--=-===--=-=-=
 % LISTAGENS (código)
-% -----------------------------------------------------------------------
+% =-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=--=-=-=--=-===--=-=-=
 \usepackage{listings}
 \lstdefinestyle{codigofonte}{
   language=Python,
@@ -120,9 +139,9 @@
 }
 \lstset{style=codigofonte}
 
-% -----------------------------------------------------------------------
+% =-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=--=-=-=--=-===--=-=-=
 % REFERÊNCIAS
-% -----------------------------------------------------------------------
+% =-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=--=-=-=--=-===--=-=-=
 \usepackage[backend=biber,
             style=numeric-comp,
             sorting=none,
@@ -137,9 +156,9 @@
 % legenda de fonte sob figuras/tabelas
 \newcommand{\legend}[1]{\par\vspace{0.3em}{\footnotesize #1\par}}
 
-% -----------------------------------------------------------------------
+% =-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=--=-=-=--=-===--=-=-=
 % HYPERREF
-% -----------------------------------------------------------------------
+% =-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=--=-=-=--=-===--=-=-=
 \usepackage[hidelinks]{hyperref}
 \hypersetup{
   pdftitle   = {Desafio Técnico SC Clouds, Questões Teóricas},
@@ -154,9 +173,9 @@
 }
 \urlstyle{same}
 
-% ====================================================================
+% =-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=--=-=-=--=-===--=-=-=
 % DOCUMENTO
-% ====================================================================
+% =-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=--=-=-=--=-===--=-=-=
 \begin{document}
 
 \selectlanguage{brazilian}
@@ -173,12 +192,18 @@
 \end{center}
 \vspace{0.6em}
 {\color{cRule}\rule{\linewidth}{0.8pt}}
+
+% =-=-=-=-=-=--=-=-=-=-==-=--= Sumário =-=-=-=-=-=-=-=-=-=-=-=--=-=
+\vspace{0.4em}
+\tableofcontents
+\vspace{0.4em}
+{\color{cRule}\rule{\linewidth}{0.4pt}}
 \vspace{0.4em}
 
 \input{\srcroot chapters/q1.tex}
 \input{\srcroot chapters/q2.tex}
 \input{\srcroot chapters/q3.tex}
 
-\printbibliography[title={Referências}]
+\printbibliography[heading=bibintoc,title={Referências}]
 
 \end{document}
