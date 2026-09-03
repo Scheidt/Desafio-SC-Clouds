@@ -101,7 +101,7 @@
 \renewcommand{\headrule}{\hbox to\headwidth{\color{cRule}\leaders\hrule height \headrulewidth\hfill}}
 \fancyhead[L]{\footnotesize\sffamily Desafio Técnico SC Clouds}
 \fancyhead[R]{\footnotesize\sffamily Questões Teóricas}
-\fancyfoot[C]{\footnotesize\sffamily\thepage\ de \pageref{LastPage}}
+\fancyfoot[C]{\footnotesize\sffamily\thepage\ de \pageref*{LastPage}}
 
 % =-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-=-=-=--=-=-=--=-===--=-=-=
 % LISTAGENS (código)
@@ -195,7 +195,7 @@
 
 % =-=-=-=-=-=--=-=-=-=-==-=--= Sumário =-=-=-=-=-=-=-=-=-=-=-=--=-=
 \vspace{0.4em}
-\tableofcontents
+{\hypersetup{linkcolor=black}\tableofcontents}
 \vspace{0.4em}
 {\color{cRule}\rule{\linewidth}{0.4pt}}
 \vspace{0.4em}
